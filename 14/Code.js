@@ -14,8 +14,7 @@ function appendDataToSheet(data) {
   // 시트가 없으면 새로 생성하고 헤더를 추가합니다.
   if (!sheet) {
     sheet = ss.insertSheet(sheetName);
-    const headers = ['체크리스트 제목', '점검일', '점검자', '점검 구분', '점검 항목', '점검 기준', '점검
-방법', '적합 여부', '미적합 여부', '개선사항', '저장일시'];
+    const headers = ['체크리스트 제목', '점검일', '점검자', '점검 구분', '점검 항목', '점검 기준', '점검 방법', '적합 여부', '미적합 여부', '개선사항', '저장일시'];
     sheet.appendRow(headers);
     sheet.setFrozenRows(1); // 첫 행을 고정
 
