@@ -2,8 +2,7 @@ function doGet(e) {
   // 웹 앱으로 배포 시 index.html 파일을 서빙합니다.
   return HtmlService.createHtmlOutputFromFile('index')
       .setTitle('문서관리 점검 체크리스트')
-      .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL); // 필요에 따라
-보안 설정 조정
+      .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL); // 필요에 따라 보안 설정 조정
 }
 
 function appendDataToSheet(data) {
@@ -17,7 +16,7 @@ function appendDataToSheet(data) {
     const headers = ['체크리스트 제목', '점검일', '점검자', '점검 구분', '점검 항목', '점검 기준', '점검 방법', '적합 여부', '미적합 여부', '개선사항', '저장일시'];
     sheet.appendRow(headers);
     sheet.setFrozenRows(1); // 첫 행을 고정
-
+    
     // 헤더 스타일링 (선택 사항)
     const headerRange = sheet.getRange(1, 1, 1, headers.length);
     headerRange.setBackground('#1A237E'); // 네이비 배경
@@ -47,58 +46,6 @@ function appendDataToSheet(data) {
   });
 
   return '데이터가 스프레드시트에 성공적으로 저장되었습니다.';
-}
-
-/**
- * 스프레드시트에서 데이터를 읽어와 HTML로 반환합니다.
- * HTML의 checkItems 배열 구조에 맞게 데이터를 가공하여 반환합니다.
- */
-function getDataFromSheet() {
-  Logger.log('getDataFromSheet: 함수 시작');
-  try {
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
-    const sheetName = '문서관리점검체크리스트';
-    const sheet = ss.getSheetByName(sheetName);
-    Logger.log('getDataFromSheet: 시트 객체 - ' + (sheet ? sheet.getName() : '시트 없음'));
-
-    if (!sheet) {
-      const jsonResult = JSON.stringify([]);
-      Logger.log('getDataFromSheet: 최종 반환될 JSON 문자열 (처음 200자) - ' + (jsonResult ? jsonResult.substring(0, 200) : '반환값 없음'));
-      return jsonResult; // 시트가 없으면 빈 배열 반환
-    }
-
-    const range = sheet.getDataRange();
-    const values = range.getValues();
-    Logger.log('getDataFromSheet: raw values 길이 - ' + (values ? values.length : 'values 없음'));
-    if(values && values.length > 0) Logger.log('getDataFromSheet: raw values 헤더 - ' + JSON.stringify(values[0]));
-
-    if (values.length < 2) { // 헤더 행만 있거나 데이터가 없으면
-      const jsonResult = JSON.stringify([]);
-      Logger.log('getDataFromSheet: 최종 반환될 JSON 문자열 (처음 200자) - ' + (jsonResult ? jsonResult.substring(0, 200) : '반환값 없음'));
-      return jsonResult;
-    }
-
-    const headers = values[0]; // 첫 번째 행은 헤더
-    const dataRows = values.slice(1); // 두 번째 행부터 데이터
-
-    const result = dataRows.map(row => {
-      const rowObject = {};
-      headers.forEach((header, index) => {
-        // 헤더 이름을 키로 사용하여 객체 생성
-        rowObject[header] = row[index];
-      });
-      return rowObject;
-    });
-    Logger.log('getDataFromSheet: 가공된 result (첫 3개) - ' + JSON.stringify(result.slice(0, 3)));
-    const jsonResult = JSON.stringify(result);
-    Logger.log('getDataFromSheet: 최종 반환될 JSON 문자열 (처음 200자) - ' + (jsonResult ? jsonResult.substring(0, 200) : '반환값 없음'));
-    return jsonResult;
-  } catch (e) {
-    Logger.log('getDataFromSheet: 오류 발생 - ' + e.toString() + ' 스택: ' + e.stack);
-    const jsonResult = JSON.stringify([]);
-    Logger.log('getDataFromSheet: 최종 반환될 JSON 문자열 (오류 시) - ' + (jsonResult ? jsonResult.substring(0, 200) : '반환값 없음'));
-    return jsonResult; // 오류 시 빈 배열 반환
-  }
 }
 
 // 이 함수는 외부에서 호출할 수 있도록 노출합니다.

@@ -4,15 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>정보자산 위험관리 문서관리 점검 체크리스트 ✍️</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.mi
-n.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fonta
-wesome-free@6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@
-300;400;500;600;700&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:w
-ght@700&display=swap'); /* 제목용 폰트 */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap'); /* 제목용 폰트 */
         :root {
             /* CSS 변수 기본값 설정 (네이비 계열) */
             --accent-color: #1A237E; /* 진한 네이비 */
@@ -46,8 +42,7 @@ ght@700&display=swap'); /* 제목용 폰트 */
         }
         .gradient-header-bg {
             /* 양식명에 따른 테마 색상 그라디언트 */
-            background: linear-gradient(135deg, var(--accent-color-start) 0%, va
-r(--accent-color-end) 100%);
+            background: linear-gradient(135deg, var(--accent-color-start) 0%, var(--accent-color-end) 100%);
             padding: 2.5rem; /* 패딩 증가 */
             border-radius: 1rem; /* 더 둥근 모서리 */
             color: white;
@@ -87,8 +82,7 @@ r(--accent-color-end) 100%);
         }
         /* H2 및 H3에 동일하게 적용될 섹션 제목 스타일 */
         .section-heading, .document-output h2, .document-output h3 {
-            font-family: 'Playfair Display', serif !important; /* Playfair Displ
-ay 폰트 강제 적용 */
+            font-family: 'Playfair Display', serif !important; /* Playfair Display 폰트 강제 적용 */
             font-weight: 700 !important; /* 굵게 강제 적용 */
             color: #1F2937 !important; /* 진한 회색 강제 적용 */
             display: flex; /* 아이콘과 텍스트 정렬 */
@@ -141,8 +135,7 @@ ay 폰트 강제 적용 */
             }
             /* material-section의 외곽선과 그림자를 인쇄 시에도 유지 */
             .material-section {
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important; /* 인쇄 시에
-도 연한 그림자 유지 */
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important; /* 인쇄 시에도 연한 그림자 유지 */
                 border: 1px solid #e5e7eb !important; /* 인쇄 시에도 외곽선 유지 */
                 padding: 1.2rem !important; /* 패딩 유지 */
                 margin-bottom: 1.2rem !important; /* 마진 유지 */
@@ -164,8 +157,7 @@ ay 폰트 강제 적용 */
             }
             /* 그라디언트 헤더 및 색상 요소의 색상 유지 */
             .gradient-header-bg {
-                background: linear-gradient(135deg, var(--accent-color-start) 0%
-, var(--accent-color-end) 100%) !important;
+                background: linear-gradient(135deg, var(--accent-color-start) 0%, var(--accent-color-end) 100%) !important;
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
                 color: white !important;
@@ -243,11 +235,9 @@ ay 폰트 강제 적용 */
     <div class="container mx-auto px-4 py-8 max-w-7xl">
         <div class="text-center mb-8 no-print">
             <h1 class="text-4xl font-bold text-gray-800 mb-2">
-                <i class="fas fa-clipboard-check text-blue-800 mr-3"></i> 정보자산
-위험관리 문서관리 점검 체크리스트
+                <i class="fas fa-clipboard-check text-blue-800 mr-3"></i> 정보자산 위험관리 문서관리 점검 체크리스트
             </h1>
-            <p class="text-gray-600 text-lg">정보자산 위험관리 절차서 내 문서관리 점검을 위한 체크리스트
-를 작성합니다.</p>
+            <p class="text-gray-600 text-lg">정보자산 위험관리 절차서 내 문서관리 점검을 위한 체크리스트를 작성합니다.</p>
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div class="bg-white rounded-lg shadow-lg p-6 no-print">
@@ -257,87 +247,60 @@ ay 폰트 강제 적용 */
                 </h2>
                 <form id="documentForm" class="space-y-6">
                     <div class="border-b border-gray-200 pb-6">
-                        <h3 class="text-lg font-semibold text-gray-700 mb-4 sect
-ion-heading">
+                        <h3 class="text-lg font-semibold text-gray-700 mb-4 section-heading">
                             <i class="fas fa-info-circle"></i> 체크리스트 기본 정보
                         </h3>
-
+                        
                         <div class="input-group">
-                            <label class="block text-sm font-medium text-gray-70
-0 mb-2" for="documentTitle">체크리스트 제목*</label>
-                            <input type="text" id="documentTitle" required class
-="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ri
-ng-2 focus:ring-blue-700" placeholder="예: 2025년 상반기 문서관리 점검 체크리스트">
+                            <label class="block text-sm font-medium text-gray-700 mb-2" for="documentTitle">체크리스트 제목*</label>
+                            <input type="text" id="documentTitle" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700" placeholder="예: 2025년 상반기 문서관리 점검 체크리스트">
                         </div>
                         <div class="input-group">
-                            <label class="block text-sm font-medium text-gray-70
-0 mb-2" for="checkDate">점검일*</label>
-                            <input type="date" id="checkDate" required class="w-
-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2
- focus:ring-blue-700">
+                            <label class="block text-sm font-medium text-gray-700 mb-2" for="checkDate">점검일*</label>
+                            <input type="date" id="checkDate" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700">
                         </div>
                         <div class="input-group">
-                            <label class="block text-sm font-medium text-gray-70
-0 mb-2" for="checkerName">점검자*</label>
-                            <input type="text" id="checkerName" required class="
-w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring
--2 focus:ring-blue-700" placeholder="예: 김정보 (정보보안팀)">
+                            <label class="block text-sm font-medium text-gray-700 mb-2" for="checkerName">점검자*</label>
+                            <input type="text" id="checkerName" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700" placeholder="예: 김정보 (정보보안팀)">
                         </div>
                     </div>
 
                     <div class="border-b border-gray-200 pb-6">
-                        <h3 class="text-lg font-semibold text-gray-700 mb-4 sect
-ion-heading">
+                        <h3 class="text-lg font-semibold text-gray-700 mb-4 section-heading">
                             <i class="fas fa-list-check"></i> 점검 항목 목록
                         </h3>
-                        <button type="button" id="addItemButton" class="w-full b
-g-blue-800 text-white py-3 px-6 rounded-md hover:bg-blue-900 transition duration
--300 font-semibold mb-4">
+                        <button type="button" id="addItemButton" class="w-full bg-blue-800 text-white py-3 px-6 rounded-md hover:bg-blue-900 transition duration-300 font-semibold mb-4">
                             <i class="fas fa-plus-circle mr-2"></i>
                             점검 항목 추가
                         </button>
                         <div id="checkItemList" class="space-y-2">
-                            <p id="noItemMessage" class="text-gray-500 text-cent
-er">아직 추가된 점검 항목이 없습니다. '점검 항목 추가' 버튼을 눌러주세요.</p>
+                            <p id="noItemMessage" class="text-gray-500 text-center">아직 추가된 점검 항목이 없습니다. '점검 항목 추가' 버튼을 눌러주세요.</p>
                         </div>
                     </div>
-
+                    
                     <div class="flex flex-col space-y-3">
-                        <button type="submit" class="w-full bg-blue-800 text-whi
-te py-3 px-6 rounded-md hover:bg-blue-900 transition duration-300 font-semibold"
->
+                        <button type="submit" class="w-full bg-blue-800 text-white py-3 px-6 rounded-md hover:bg-blue-900 transition duration-300 font-semibold">
                             <i class="fas fa-file-invoice mr-2"></i>
                             체크리스트 생성하기
                         </button>
-                        <button type="button" id="saveFileButton" class="w-full
-bg-blue-700 text-white py-3 px-6 rounded-md hover:bg-blue-800 transition duratio
-n-300 font-semibold">
+                        <button type="button" id="saveFileButton" class="w-full bg-blue-700 text-white py-3 px-6 rounded-md hover:bg-blue-800 transition duration-300 font-semibold">
                             <i class="fas fa-download mr-2"></i>
                             데이터 파일로 저장
                         </button>
-                        <label for="loadFile" class="w-full bg-gray-600 text-whi
-te py-3 px-6 rounded-md hover:bg-gray-700 transition duration-300 font-semibold
-text-center cursor-pointer">
+                        <label for="loadFile" class="w-full bg-gray-600 text-white py-3 px-6 rounded-md hover:bg-gray-700 transition duration-300 font-semibold text-center cursor-pointer">
                             <i class="fas fa-upload mr-2"></i>
                             데이터 파일 불러오기
-                            <input type="file" id="loadFile" accept=".json" clas
-s="hidden">
+                            <input type="file" id="loadFile" accept=".json" class="hidden">
                         </label>
-                        <button type="button" id="sendToSheetButton" class="w-fu
-ll bg-green-600 text-white py-3 px-6 rounded-md hover:bg-green-700 transition du
-ration-300 font-semibold">
+                        <button type="button" id="sendToSheetButton" class="w-full bg-green-600 text-white py-3 px-6 rounded-md hover:bg-green-700 transition duration-300 font-semibold">
                             <i class="fas fa-file-excel mr-2"></i>
                             스프레드시트에 저장
                         </button>
-                        <button type="button" id="loadFromSheetButton" class="w-
-full bg-purple-600 text-white py-3 px-6 rounded-md hover:bg-purple-700 transitio
-n duration-300 font-semibold">
+                        <button type="button" id="loadFromSheetButton" class="w-full bg-purple-600 text-white py-3 px-6 rounded-md hover:bg-purple-700 transition duration-300 font-semibold">
                             <i class="fas fa-cloud-download-alt mr-2"></i>
                             스프레드시트에서 불러오기
                         </button>
-                        <button type="button" id="clearFormButton" class="w-full
- bg-gray-300 text-gray-800 py-3 px-6 rounded-md hover:bg-gray-400 transition dur
-ation-300 font-semibold">
+                        <button type="button" id="clearFormButton" class="w-full bg-gray-300 text-gray-800 py-3 px-6 rounded-md hover:bg-gray-400 transition duration-300 font-semibold">
                             <i class="fas fa-trash-alt mr-2"></i>
                             양식 초기화
                         </button>
@@ -350,8 +313,7 @@ ation-300 font-semibold">
                         <i class="fas fa-file-alt text-green-600 mr-2"></i>
                         생성된 점검 체크리스트
                     </h2>
-                    <button onclick="window.print()" class="bg-green-600 text-wh
-ite px-4 py-2 rounded-md hover:bg-green-700 transition duration-300">
+                    <button onclick="window.print()" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition duration-300">
                         <i class="fas fa-print mr-2"></i>
                         PDF 저장
                     </button>
@@ -359,8 +321,7 @@ ite px-4 py-2 rounded-md hover:bg-green-700 transition duration-300">
                 <div id="documentPreview" class="document-output">
                     <div class="text-center text-gray-500 py-12">
                         <i class="fas fa-clipboard-list text-6xl mb-4"></i>
-                        <p class="text-lg">좌측 양식을 작성하고 "체크리스트 생성하기" 버튼을 클릭하세요</p
->
+                        <p class="text-lg">좌측 양식을 작성하고 "체크리스트 생성하기" 버튼을 클릭하세요</p>
                     </div>
                 </div>
             </div>
@@ -370,64 +331,41 @@ ite px-4 py-2 rounded-md hover:bg-green-700 transition duration-300">
     <div id="itemModal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
-            <h3 class="text-xl font-bold mb-4 text-gray-800"><i class="fas fa-pl
-us-circle mr-2 text-blue-700"></i>점검 항목 상세 정보 입력</h3>
+            <h3 class="text-xl font-bold mb-4 text-gray-800"><i class="fas fa-plus-circle mr-2 text-blue-700"></i>점검 항목 상세 정보 입력</h3>
             <form id="itemForm" class="space-y-4">
                 <div class="input-group">
-                    <label class="block text-sm font-medium text-gray-700 mb-2"
-for="checkDivision">점검 구분*</label>
-                    <input type="text" id="checkDivision" required class="w-full
- px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 foc
-us:ring-blue-700" placeholder="예: 문서 분류">
+                    <label class="block text-sm font-medium text-gray-700 mb-2" for="checkDivision">점검 구분*</label>
+                    <input type="text" id="checkDivision" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700" placeholder="예: 문서 분류">
                 </div>
                 <div class="input-group">
-                    <label class="block text-sm font-medium text-gray-700 mb-2"
-for="checkItem">점검 항목*</label>
-                    <input type="text" id="checkItem" required class="w-full px-
-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:r
-ing-blue-700" placeholder="예: 문서 분류 기준표 작성 및 적용">
+                    <label class="block text-sm font-medium text-gray-700 mb-2" for="checkItem">점검 항목*</label>
+                    <input type="text" id="checkItem" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700" placeholder="예: 문서 분류 기준표 작성 및 적용">
                 </div>
                 <div class="input-group">
-                    <label class="block text-sm font-medium text-gray-700 mb-2"
-for="checkStandard">점검 기준*</label>
-                    <textarea id="checkStandard" rows="2" required class="w-full
- px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 foc
-us:ring-blue-700" placeholder="예: 분류 기준표가 수립되고 일관되게 적용되는가?"></textarea>
+                    <label class="block text-sm font-medium text-gray-700 mb-2" for="checkStandard">점검 기준*</label>
+                    <textarea id="checkStandard" rows="2" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700" placeholder="예: 분류 기준표가 수립되고 일관되게 적용되는가?"></textarea>
                 </div>
                 <div class="input-group">
-                    <label class="block text-sm font-medium text-gray-700 mb-2"
-for="checkMethod">점검 방법</label>
-                    <input type="text" id="checkMethod" class="w-full px-3 py-2
-border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blu
-e-700" placeholder="예: 문서 검토">
+                    <label class="block text-sm font-medium text-gray-700 mb-2" for="checkMethod">점검 방법</label>
+                    <input type="text" id="checkMethod" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700" placeholder="예: 문서 검토">
                 </div>
                 <div class="input-group flex items-center space-x-4">
                     <div>
-                        <input type="radio" id="fitY" name="checkResult" value="
-적합" class="mr-1">
-                        <label for="fitY" class="text-sm font-medium text-gray-7
-00">적합</label>
+                        <input type="radio" id="fitY" name="checkResult" value="적합" class="mr-1">
+                        <label for="fitY" class="text-sm font-medium text-gray-700">적합</label>
                     </div>
                     <div>
-                        <input type="radio" id="fitN" name="checkResult" value="
-미적합" class="mr-1">
-                        <label for="fitN" class="text-sm font-medium text-gray-7
-00">미적합</label>
+                        <input type="radio" id="fitN" name="checkResult" value="미적합" class="mr-1">
+                        <label for="fitN" class="text-sm font-medium text-gray-700">미적합</label>
                     </div>
                 </div>
                 <div class="input-group">
-                    <label class="block text-sm font-medium text-gray-700 mb-2"
-for="improvement">개선사항</label>
-                    <textarea id="improvement" rows="2" class="w-full px-3 py-2
-border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blu
-e-700" placeholder="미적합 시 개선사항을 입력하세요. 예: 문서 분류 기준표 최신화 및 배포"></textarea>
+                    <label class="block text-sm font-medium text-gray-700 mb-2" for="improvement">개선사항</label>
+                    <textarea id="improvement" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700" placeholder="미적합 시 개선사항을 입력하세요. 예: 문서 분류 기준표 최신화 및 배포"></textarea>
                 </div>
                 <div class="flex justify-end space-x-3">
-                    <button type="button" id="cancelItemButton" class="bg-gray-3
-00 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400 transition duration-300"
->취소</button>
-                    <button type="submit" class="bg-blue-800 text-white px-4 py-
-2 rounded-md hover:bg-blue-900 transition duration-300">항목 추가/수정</button>
+                    <button type="button" id="cancelItemButton" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400 transition duration-300">취소</button>
+                    <button type="submit" class="bg-blue-800 text-white px-4 py-2 rounded-md hover:bg-blue-900 transition duration-300">항목 추가/수정</button>
                 </div>
             </form>
         </div>
@@ -440,23 +378,19 @@ e-700" placeholder="미적합 시 개선사항을 입력하세요. 예: 문서 �
 
         function saveFormDataToLocalStorage() {
             const formData = {};
-            const formElements = document.querySelectorAll(`#${formId} input, #$
-{formId} textarea, #${formId} select`);
+            const formElements = document.querySelectorAll(`#${formId} input, #${formId} textarea, #${formId} select`);
             formElements.forEach(element => {
                 // 모달 필드 제외하고 저장
-                if (!['checkDivision', 'checkItem', 'checkStandard', 'checkMetho
-d', 'fitY', 'fitN', 'improvement'].includes(element.id)) {
+                if (!['checkDivision', 'checkItem', 'checkStandard', 'checkMethod', 'fitY', 'fitN', 'improvement'].includes(element.id)) {
                     formData[element.id] = element.value;
                 }
             });
             formData.checkItems = checkItems;
-            localStorage.setItem(localStorageKeyPrefix + formId, JSON.stringify(
-formData));
+            localStorage.setItem(localStorageKeyPrefix + formId, JSON.stringify(formData));
         }
 
         function loadFormDataFromLocalStorage() {
-            const savedData = localStorage.getItem(localStorageKeyPrefix + formI
-d);
+            const savedData = localStorage.getItem(localStorageKeyPrefix + formId);
             if (savedData) {
                 const formData = JSON.parse(savedData);
                 applyLoadedDataToForm(formData); // 함수 분리
@@ -492,8 +426,7 @@ d);
         }
 
         function clearForm() {
-            const formElements = document.querySelectorAll(`#${formId} input, #$
-{formId} textarea, #${formId} select`);
+            const formElements = document.querySelectorAll(`#${formId} input, #${formId} textarea, #${formId} select`);
             formElements.forEach(element => {
                 if (element.type === 'date') {
                     element.value = '';
@@ -513,11 +446,9 @@ d);
 
         function downloadDataFile() {
             const formData = {};
-            const formElements = document.querySelectorAll(`#${formId} input, #$
-{formId} textarea, #${formId} select`);
+            const formElements = document.querySelectorAll(`#${formId} input, #${formId} textarea, #${formId} select`);
             formElements.forEach(element => {
-                if (!['checkDivision', 'checkItem', 'checkStandard', 'checkMetho
-d', 'fitY', 'fitN', 'improvement'].includes(element.id)) {
+                if (!['checkDivision', 'checkItem', 'checkStandard', 'checkMethod', 'fitY', 'fitN', 'improvement'].includes(element.id)) {
                     formData[element.id] = element.value;
                 }
             });
@@ -528,10 +459,8 @@ d', 'fitY', 'fitN', 'improvement'].includes(element.id)) {
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            const formTitle = document.getElementById('documentTitle').value.rep
-lace(/[^a-zA-Z0-9가-힣_]/g, '_') || '문서관리_점검_체크리스트';
-            a.download = `${formTitle}_데이터_${new Date().toISOString().slice(0,10
-)}.json`;
+            const formTitle = document.getElementById('documentTitle').value.replace(/[^a-zA-Z0-9가-힣_]/g, '_') || '문서관리_점검_체크리스트';
+            a.download = `${formTitle}_데이터_${new Date().toISOString().slice(0,10)}.json`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -551,8 +480,7 @@ lace(/[^a-zA-Z0-9가-힣_]/g, '_') || '문서관리_점검_체크리스트';
                     saveFormDataToLocalStorage();
                     alert('데이터를 성공적으로 불러왔습니다!');
                 } catch (error) {
-                    alert('파일을 읽는 중 오류가 발생했거나 유효한 JSON 파일이 아닙니다: ' + error.messa
-ge);
+                    alert('파일을 읽는 중 오류가 발생했거나 유효한 JSON 파일이 아닙니다: ' + error.message);
                 }
             };
             reader.readAsText(file);
@@ -561,13 +489,11 @@ ge);
 
         // Google Apps Script로 데이터 전송
         function sendDataToGoogleSheet() {
-            const documentTitle = document.getElementById('documentTitle').value
-;
+            const documentTitle = document.getElementById('documentTitle').value;
             const checkDate = document.getElementById('checkDate').value;
             const checkerName = document.getElementById('checkerName').value;
 
-            if (!documentTitle || !checkDate || !checkerName || checkItems.lengt
-h === 0) {
+            if (!documentTitle || !checkDate || !checkerName || checkItems.length === 0) {
                 alert('체크리스트 기본 정보와 점검 항목을 모두 입력해주세요.');
                 return;
             }
@@ -592,45 +518,17 @@ h === 0) {
         // Google Apps Script에서 데이터 불러오기
         function loadDataFromGoogleSheet() {
             google.script.run
-                .withSuccessHandler(function(jsonData) {
-                    console.log('[DEBUG] loadDataFromGoogleSheet: 서버로부터 받은 jsonData 타입:', typeof jsonData);
-                    console.log('[DEBUG] loadDataFromGoogleSheet: 서버로부터 받은 jsonData 값:', jsonData);
-                    let data;
-                    if (typeof jsonData === 'string') {
-                        try {
-                            data = JSON.parse(jsonData);
-                        } catch (e) {
-                            console.error('[DEBUG] loadDataFromGoogleSheet: JSON.parse 오류', e);
-                            console.error('[DEBUG] loadDataFromGoogleSheet: 파싱 시도한 jsonData:', jsonData);
-                            alert('스프레드시트에서 데이터를 파싱하는 중 오류가 발생했습니다: ' + e.message);
-                            // 오류 발생 시 checkItems를 비우고 UI를 업데이트할 수 있도록 추가
-                            checkItems = [];
-                            renderCheckItemList();
-                            generateDocument();
-                            return; // 추가적인 처리를 중단
-                        }
-                    } else {
-                        // jsonData가 문자열이 아니면 이미 객체일 수 있다고 가정
-                        data = jsonData;
-                    }
-                    console.log('[DEBUG] loadDataFromGoogleSheet: 파싱 후 또는 직접 할당된 data:', data);
-                    if (data && Array.isArray(data) && data.length > 0) {
+                .withSuccessHandler(function(data) {
+                    if (data && data.length > 0) {
                         // 기본 정보는 첫 번째 행에서 가져옴 (가장 최근 데이터라고 가정)
                         // 모든 항목에 동일한 제목, 날짜, 점검자가 있다고 가정
-                        // 이 로직은 data가 item 객체의 배열이라고 가정합니다.
-                        // Code.gs의 getDataFromSheet는 각 행을 객체로 변환하므로,
-                        // documentTitle, checkDate, checkerName을 별도로 설정하는 로직은
-                        // data가 단일 체크리스트의 모든 항목을 포함하고,
-                        // 그 항목들이 동일한 메타데이터를 공유한다고 가정할 때 의미가 있습니다.
-                        // 만약 여러 다른 체크리스트의 항목들이 섞여있다면, 이 로직은 부적절할 수 있습니다.
-                        // 현재 Code.gs는 시트의 모든 행을 가져오므로, 가장 마지막 행의 정보를 사용하는 것은
-                        // '가장 최근에 추가된 항목의 메타데이터를 사용한다'는 의미가 될 수 있습니다.
-                        const latestEntry = data[data.length - 1];
-
+                        const latestEntry = data[data.length - 1]; // 가장 최근에 추가된 항목 (또는 원하는 로직)
+                        
                         document.getElementById('documentTitle').value = latestEntry['체크리스트 제목'] || '';
-                        document.getElementById('checkDate').value = latestEntry['점검일'] || ''; // 날짜 형식 주의
+                        document.getElementById('checkDate').value = latestEntry['점검일'] || '';
                         document.getElementById('checkerName').value = latestEntry['점검자'] || '';
-
+                        
+                        // checkItems 배열을 Apps Script에서 받은 데이터로 채움
                         checkItems = data.map(row => ({
                             checkDivision: row['점검 구분'] || '',
                             checkItem: row['점검 항목'] || '',
@@ -645,15 +543,10 @@ h === 0) {
                         generateDocument();
                         alert('스프레드시트에서 데이터를 성공적으로 불러왔습니다!');
                     } else {
-                        console.log('[DEBUG] loadDataFromGoogleSheet: 데이터가 없거나 배열이 아님. 받은 data:', data);
-                        checkItems = [];
-                        renderCheckItemList();
-                        generateDocument();
-                        alert('스프레드시트에서 불러올 데이터가 없거나 형식이 맞지 않습니다.');
+                        alert('스프레드시트에서 불러올 데이터가 없습니다.');
                     }
                 })
                 .withFailureHandler(function(error) {
-                    console.error('[DEBUG] loadDataFromGoogleSheet: Apps Script 호출 실패:', error);
                     alert('스프레드시트에서 데이터 불러오기 중 오류가 발생했습니다: ' + error.message);
                 })
                 .getDataFromSheet();
@@ -665,19 +558,16 @@ h === 0) {
             const checkDateInput = document.getElementById('checkDate');
             const checkerNameInput = document.getElementById('checkerName');
 
-            const documentTitle = documentTitleInput.value || documentTitleInput
-.placeholder || '정보자산 위험관리 문서관리 점검 체크리스트';
+            const documentTitle = documentTitleInput.value || documentTitleInput.placeholder || '정보자산 위험관리 문서관리 점검 체크리스트';
             const checkDate = checkDateInput.value;
-            const checkerName = checkerNameInput.value || checkerNameInput.place
-holder || '';
+            const checkerName = checkerNameInput.value || checkerNameInput.placeholder || '';
 
             const root = document.documentElement;
             let themeColor = '#1A237E'; // Navy
             let themeColorLight = '#C5CAE9';
             let themeColorStart = '#283593';
             let themeColorEnd = '#1A237E';
-            let headerBgImage = "url('https://via.placeholder.com/300x150/9FA8DA
-/FFFFFF?text=Checklist')"; // 체크리스트 아이콘
+            let headerBgImage = "url('https://via.placeholder.com/300x150/9FA8DA/FFFFFF?text=Checklist')"; // 체크리스트 아이콘
             let headerBgPosition = 'right 10% bottom 20%';
             let headerBgSize = '40% auto';
             let headerBgOpacity = 0.15;
@@ -691,44 +581,31 @@ holder || '';
             root.style.setProperty('--header-bg-position', headerBgPosition);
             root.style.setProperty('--header-bg-size', headerBgSize);
             root.style.setProperty('--header-bg-opacity', headerBgOpacity);
-            root.style.setProperty('--header-mix-blend-mode', headerMixBlendMode
-);
+            root.style.setProperty('--header-mix-blend-mode', headerMixBlendMode);
 
             let checkTableRows = '';
             if (checkItems.length > 0) {
                 checkTableRows = checkItems.map((item, index) => `
-                    <tr class="${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'} bo
-rder-b border-gray-200">
-                        <td class="py-2 px-3 text-sm text-gray-700">${item.check
-Division}</td>
-                        <td class="py-2 px-3 text-sm text-gray-700">${item.check
-Item}</td>
-                        <td class="py-2 px-3 text-sm text-gray-700">${item.check
-Standard}</td>
-                        <td class="py-2 px-3 text-sm text-gray-700">${item.check
-Method || '-'}</td>
-                        <td class="py-2 px-3 text-sm text-gray-700 w-20 text-cen
-ter">${item.checkResult === '적합' ? '&#10003;' : ''}</td>
-                        <td class="py-2 px-3 text-sm text-gray-700 w-20 text-cen
-ter">${item.checkResult === '미적합' ? '&#10003;' : ''}</td>
-                        <td class="py-2 px-3 text-sm text-gray-700">${item.impro
-vement || '-'}</td>
+                    <tr class="${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'} border-b border-gray-200">
+                        <td class="py-2 px-3 text-sm text-gray-700">${item.checkDivision}</td>
+                        <td class="py-2 px-3 text-sm text-gray-700">${item.checkItem}</td>
+                        <td class="py-2 px-3 text-sm text-gray-700">${item.checkStandard}</td>
+                        <td class="py-2 px-3 text-sm text-gray-700">${item.checkMethod || '-'}</td>
+                        <td class="py-2 px-3 text-sm text-gray-700 w-20 text-center">${item.checkResult === '적합' ? '&#10003;' : ''}</td>
+                        <td class="py-2 px-3 text-sm text-gray-700 w-20 text-center">${item.checkResult === '미적합' ? '&#10003;' : ''}</td>
+                        <td class="py-2 px-3 text-sm text-gray-700">${item.improvement || '-'}</td>
                     </tr>
                 `).join('');
             } else {
-                checkTableRows = `<tr><td colspan="7" class="py-4 text-center te
-xt-gray-500">등록된 점검 항목이 없습니다.</td></tr>`;
+                checkTableRows = `<tr><td colspan="7" class="py-4 text-center text-gray-500">등록된 점검 항목이 없습니다.</td></tr>`;
             }
 
             let generatedHtml = `
                 <div class="fade-in">
                     <div class="gradient-header-bg text-center mb-8">
-                        <h1 class="text-4xl font-bold mb-2">${documentTitle}</h1
->
-                        ${checkDate ? `<p class="text-xl opacity-90">${new Date(
-checkDate).toLocaleDateString('ko-KR')}</p>` : ''}
-                        ${checkerName ? `<p class="text-lg mt-2 opacity-80">점검
-자: ${checkerName}</p>` : ''}
+                        <h1 class="text-4xl font-bold mb-2">${documentTitle}</h1>
+                        ${checkDate ? `<p class="text-xl opacity-90">${new Date(checkDate).toLocaleDateString('ko-KR')}</p>` : ''}
+                        ${checkerName ? `<p class="text-lg mt-2 opacity-80">점검자: ${checkerName}</p>` : ''}
                         <p class="text-lg mt-4 opacity-80">정보자산 위험관리 절차서</p>
                     </div>
                     <div class="material-section">
@@ -736,9 +613,7 @@ checkDate).toLocaleDateString('ko-KR')}</p>` : ''}
                             <i class="fas fa-clipboard-list"></i>
                             점검 개요
                         </h2>
-                        <p class="text-gray-700 leading-relaxed">본 체크리스트는 정보자산
-위험관리 절차서 내 문서관리의 효율성과 규정 준수 여부를 점검하기 위해 작성되었습니다. 각 점검 항목에 따라 문서 관리 현황을 평가하고 개선
-사항을 도출합니다.</p>
+                        <p class="text-gray-700 leading-relaxed">본 체크리스트는 정보자산 위험관리 절차서 내 문서관리의 효율성과 규정 준수 여부를 점검하기 위해 작성되었습니다. 각 점검 항목에 따라 문서 관리 현황을 평가하고 개선 사항을 도출합니다.</p>
                     </div>
 
                     <div class="material-section">
@@ -747,24 +622,16 @@ checkDate).toLocaleDateString('ko-KR')}</p>` : ''}
                             점검 항목 상세
                         </h2>
                         <div class="overflow-x-auto">
-                            <table class="min-w-full bg-white border border-gray
--200 rounded-lg">
+                            <table class="min-w-full bg-white border border-gray-200 rounded-lg">
                                 <thead class="bg-gray-100">
                                     <tr>
-                                        <th class="py-2 px-3 text-left text-xs f
-ont-semibold text-gray-600 uppercase tracking-wider">점검 구분</th>
-                                        <th class="py-2 px-3 text-left text-xs f
-ont-semibold text-gray-600 uppercase tracking-wider">점검 항목</th>
-                                        <th class="py-2 px-3 text-left text-xs f
-ont-semibold text-gray-600 uppercase tracking-wider">점검 기준</th>
-                                        <th class="py-2 px-3 text-left text-xs f
-ont-semibold text-gray-600 uppercase tracking-wider">점검 방법</th>
-                                        <th class="py-2 px-3 text-center text-xs
- font-semibold text-gray-600 uppercase tracking-wider">적합 여부</th>
-                                        <th class="py-2 px-3 text-center text-xs
- font-semibold text-gray-600 uppercase tracking-wider">미적합 여부</th>
-                                        <th class="py-2 px-3 text-left text-xs f
-ont-semibold text-gray-600 uppercase tracking-wider">개선사항</th>
+                                        <th class="py-2 px-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">점검 구분</th>
+                                        <th class="py-2 px-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">점검 항목</th>
+                                        <th class="py-2 px-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">점검 기준</th>
+                                        <th class="py-2 px-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">점검 방법</th>
+                                        <th class="py-2 px-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">적합 여부</th>
+                                        <th class="py-2 px-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">미적합 여부</th>
+                                        <th class="py-2 px-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">개선사항</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -774,27 +641,21 @@ ont-semibold text-gray-600 uppercase tracking-wider">개선사항</th>
                         </div>
                     </div>
 
-                    <div class="text-center text-gray-500 text-sm mt-8 pt-4 bord
-er-t border-gray-300 print-only">
-                        <p>본 문서는 ${new Date().toLocaleDateString('ko-KR')}에 생성
-되었습니다.</p>
-                        <p>&copy; ${new Date().getFullYear()} [SEJIN.CO.,LTD.]
-모든 권리 보유.</p>
+                    <div class="text-center text-gray-500 text-sm mt-8 pt-4 border-t border-gray-300 print-only">
+                        <p>본 문서는 ${new Date().toLocaleDateString('ko-KR')}에 생성되었습니다.</p>
+                        <p>&copy; ${new Date().getFullYear()} [회사명] 모든 권리 보유.</p>
                     </div>
                 </div>
             `;
-            document.getElementById('documentPreview').innerHTML = generatedHtml
-;
+            document.getElementById('documentPreview').innerHTML = generatedHtml;
 
             if (window.innerWidth < 1024) {
-                document.getElementById('documentPreview').scrollIntoView({ beha
-vior: 'smooth' });
+                document.getElementById('documentPreview').scrollIntoView({ behavior: 'smooth' });
             }
         }
 
         function setupInputPlaceholders() {
-            const inputs = document.querySelectorAll('#documentForm input[placeh
-older], #documentForm textarea[placeholder]');
+            const inputs = document.querySelectorAll('#documentForm input[placeholder], #documentForm textarea[placeholder]');
             inputs.forEach(input => {
                 input.addEventListener('keydown', (e) => {
                     if (e.key === 'Tab' && input.value.trim() === '') {
@@ -806,8 +667,7 @@ older], #documentForm textarea[placeholder]');
                 });
             });
 
-            const modalInputs = document.querySelectorAll('#itemForm input[place
-holder], #itemForm textarea[placeholder]');
+            const modalInputs = document.querySelectorAll('#itemForm input[placeholder], #itemForm textarea[placeholder]');
             modalInputs.forEach(input => {
                 input.addEventListener('keydown', (e) => {
                     if (e.key === 'Tab' && input.value.trim() === '') {
@@ -819,34 +679,27 @@ holder], #itemForm textarea[placeholder]');
         }
 
         function renderCheckItemList() {
-            const checkItemListContainer = document.getElementById('checkItemLis
-t');
+            const checkItemListContainer = document.getElementById('checkItemList');
             checkItemListContainer.innerHTML = '';
-
+            
             if (checkItems.length === 0) {
-                checkItemListContainer.innerHTML = '<p id="noItemMessage" class=
-"text-gray-500 text-center">아직 추가된 점검 항목이 없습니다. \'점검 항목 추가\' 버튼을 눌러주세요.</p>';
+                checkItemListContainer.innerHTML = '<p id="noItemMessage" class="text-gray-500 text-center">아직 추가된 점검 항목이 없습니다. \'점검 항목 추가\' 버튼을 눌러주세요.</p>';
                 return;
             }
 
             checkItems.forEach((item, index) => {
                 const itemDiv = document.createElement('div');
-                itemDiv.className = `flex items-center justify-between p-3 borde
-r border-gray-200 rounded-md ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`;
+                itemDiv.className = `flex items-center justify-between p-3 border border-gray-200 rounded-md ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`;
                 itemDiv.innerHTML = `
                     <div class="flex-1">
-                        <p class="font-medium text-gray-800">${item.checkItem} <
-span class="text-gray-500 text-sm">(${item.checkDivision})</span></p>
-                        <p class="text-sm text-gray-600">결과: ${item.checkResult}
- ${item.improvement ? `(개선: ${item.improvement})` : ''}</p>
+                        <p class="font-medium text-gray-800">${item.checkItem} <span class="text-gray-500 text-sm">(${item.checkDivision})</span></p>
+                        <p class="text-sm text-gray-600">결과: ${item.checkResult} ${item.improvement ? `(개선: ${item.improvement})` : ''}</p>
                     </div>
                     <div class="flex space-x-2">
-                        <button type="button" class="text-blue-600 hover:text-bl
-ue-800" onclick="editCheckItem(${index})">
+                        <button type="button" class="text-blue-600 hover:text-blue-800" onclick="editCheckItem(${index})">
                             <i class="fas fa-edit"></i>
                         </button>
-                        <button type="button" class="text-red-600 hover:text-red
--800" onclick="deleteCheckItem(${index})">
+                        <button type="button" class="text-red-600 hover:text-red-800" onclick="deleteCheckItem(${index})">
                             <i class="fas fa-trash-alt"></i>
                         </button>
                     </div>
@@ -855,8 +708,7 @@ ue-800" onclick="editCheckItem(${index})">
             });
         }
 
-        document.getElementById('addItemButton').addEventListener('click', () =>
- {
+        document.getElementById('addItemButton').addEventListener('click', () => {
             document.getElementById('itemForm').reset();
             document.getElementById('itemModal').classList.remove('hidden');
             document.getElementById('itemModal').style.display = 'flex';
@@ -864,14 +716,12 @@ ue-800" onclick="editCheckItem(${index})">
             document.getElementById('itemForm').dataset.editIndex = '';
         });
 
-        document.querySelector('.close-button').addEventListener('click', () =>
-{
+        document.querySelector('.close-button').addEventListener('click', () => {
             document.getElementById('itemModal').classList.add('hidden');
             document.getElementById('itemModal').style.display = 'none';
         });
 
-        document.getElementById('cancelItemButton').addEventListener('click', ()
- => {
+        document.getElementById('cancelItemButton').addEventListener('click', () => {
             document.getElementById('itemModal').classList.add('hidden');
             document.getElementById('itemModal').style.display = 'none';
         });
@@ -886,14 +736,11 @@ ue-800" onclick="editCheckItem(${index})">
 
         document.getElementById('itemForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            const checkDivision = document.getElementById('checkDivision').value
-;
+            const checkDivision = document.getElementById('checkDivision').value;
             const checkItem = document.getElementById('checkItem').value;
-            const checkStandard = document.getElementById('checkStandard').value
-;
+            const checkStandard = document.getElementById('checkStandard').value;
             const checkMethod = document.getElementById('checkMethod').value;
-            const checkResult = document.querySelector('input[name="checkResult"
-]:checked')?.value || '';
+            const checkResult = document.querySelector('input[name="checkResult"]:checked')?.value || '';
             const improvement = document.getElementById('improvement').value;
 
             const newItem = {
@@ -905,14 +752,13 @@ ue-800" onclick="editCheckItem(${index})">
                 improvement
             };
 
-            const editIndex = document.getElementById('itemForm').dataset.editIn
-dex;
+            const editIndex = document.getElementById('itemForm').dataset.editIndex;
             if (editIndex !== '') {
                 checkItems[parseInt(editIndex)] = newItem;
             } else {
                 checkItems.push(newItem);
             }
-
+            
             renderCheckItemList();
             saveFormDataToLocalStorage();
             generateDocument();
@@ -922,21 +768,17 @@ dex;
 
         function editCheckItem(index) {
             const itemToEdit = checkItems[index];
-            document.getElementById('checkDivision').value = itemToEdit.checkDiv
-ision;
+            document.getElementById('checkDivision').value = itemToEdit.checkDivision;
             document.getElementById('checkItem').value = itemToEdit.checkItem;
-            document.getElementById('checkStandard').value = itemToEdit.checkSta
-ndard;
-            document.getElementById('checkMethod').value = itemToEdit.checkMetho
-d;
+            document.getElementById('checkStandard').value = itemToEdit.checkStandard;
+            document.getElementById('checkMethod').value = itemToEdit.checkMethod;
             if (itemToEdit.checkResult === '적합') {
                 document.getElementById('fitY').checked = true;
             } else if (itemToEdit.checkResult === '미적합') {
                 document.getElementById('fitN').checked = true;
             }
-            document.getElementById('improvement').value = itemToEdit.improvemen
-t;
-
+            document.getElementById('improvement').value = itemToEdit.improvement;
+            
             document.getElementById('itemForm').dataset.editIndex = index;
             document.getElementById('itemModal').classList.remove('hidden');
             document.getElementById('itemModal').style.display = 'flex';
@@ -954,12 +796,11 @@ t;
         document.addEventListener('DOMContentLoaded', function() {
             setupInputPlaceholders();
             loadFormDataFromLocalStorage();
-
+            
             document.getElementById('itemModal').classList.add('hidden');
             document.getElementById('itemModal').style.display = 'none';
 
-            const formElements = document.querySelectorAll(`#${formId} input, #$
-{formId} textarea, #${formId} select`);
+            const formElements = document.querySelectorAll(`#${formId} input, #${formId} textarea, #${formId} select`);
             formElements.forEach(element => {
                 element.addEventListener('input', () => {
                     saveFormDataToLocalStorage();
@@ -971,19 +812,13 @@ t;
                 });
             });
 
-            document.getElementById('saveFileButton').addEventListener('click',
-downloadDataFile);
-            document.getElementById('loadFile').addEventListener('change', uploa
-dDataFile);
-            document.getElementById('clearFormButton').addEventListener('click',
- clearForm);
-            document.getElementById('sendToSheetButton').addEventListener('click
-', sendDataToGoogleSheet); // 스프레드시트 저장 버튼 연결
-            document.getElementById('loadFromSheetButton').addEventListener('cli
-ck', loadDataFromGoogleSheet); // 스프레드시트 불러오기 버튼 연결
+            document.getElementById('saveFileButton').addEventListener('click', downloadDataFile);
+            document.getElementById('loadFile').addEventListener('change', uploadDataFile);
+            document.getElementById('clearFormButton').addEventListener('click', clearForm);
+            document.getElementById('sendToSheetButton').addEventListener('click', sendDataToGoogleSheet); // 스프레드시트 저장 버튼 연결
+            document.getElementById('loadFromSheetButton').addEventListener('click', loadDataFromGoogleSheet); // 스프레드시트 불러오기 버튼 연결
 
-            document.getElementById('documentForm').addEventListener('submit', f
-unction(e) {
+            document.getElementById('documentForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 generateDocument();
             });
