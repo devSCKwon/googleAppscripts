@@ -562,33 +562,45 @@
             }
             
             google.script.run
-                .withSuccessHandler(function(data) {
-                    console.log('Data received in success handler:', data);
-                    console.log('Condition data && data.length > 0 evaluated to:', data && data.length > 0);
-                    if (data && data.length > 0) {
-                        console.log('Data after slice(1):', data.slice(1));
-                        // 첫 번째 행은 헤더이므로 건너뛰기
-                        riskTreatments = data.slice(1).map(row => ({
-                            riskId: row[0],
-                            assetName: row[1],
-                            riskGrade: row[2],
-                            riskLevel: parseFloat(row[3]),
-                            treatmentStrategy: row[4],
-                            detailedPlan: row[5],
-                            implementationSchedule: row[6],
-                            personInCharge: row[7],
-                            budget: parseFloat(row[8]),
-                            expectedEffect: row[9],
-                            approvalStatus: row[10],
-                            approver: row[11],
-                            approvalDate: row[12]
-                        }));
-                        renderRiskTreatmentList();
-                        saveFormDataToLocalStorage();
-                        generateDocument();
-                        alert("스프레드시트에서 데이터를 성공적으로 불러왔습니다!");
-                    } else {
-                        alert("스프레드시트에 저장된 위험처리방안 데이터가 없습니다.");
+                .withSuccessHandler(function(jsonData) { // 변수명을 jsonData로 변경하여 명확하게 함
+                    console.log('JSON data received in success handler:', jsonData);
+                    try {
+                        const data = JSON.parse(jsonData); // JSON 문자열을 파싱
+                        console.log('Parsed data:', data);
+                        console.log('Condition data && data.length > 0 evaluated to:', data && data.length > 0);
+
+                        if (data && data.length > 1) { // 헤더를 포함하므로 길이가 1보다 커야 데이터가 있는 것
+                            console.log('Data after slice(1):', data.slice(1));
+                            // 첫 번째 행은 헤더이므로 건너뛰기
+                            riskTreatments = data.slice(1).map(row => ({
+                                riskId: row[0] || '', // 안전하게 빈 문자열로 처리
+                                assetName: row[1] || '',
+                                riskGrade: row[2] || '',
+                                riskLevel: row[3] !== null && row[3] !== undefined ? parseFloat(row[3]) : null, // null 또는 undefined 체크
+                                treatmentStrategy: row[4] || '',
+                                detailedPlan: row[5] || '',
+                                implementationSchedule: row[6] || '',
+                                personInCharge: row[7] || '',
+                                budget: row[8] !== null && row[8] !== undefined ? parseFloat(row[8]) : null, // null 또는 undefined 체크
+                                expectedEffect: row[9] || '',
+                                approvalStatus: row[10] || '',
+                                approver: row[11] || '',
+                                approvalDate: row[12] || ''
+                            }));
+                            renderRiskTreatmentList();
+                            saveFormDataToLocalStorage();
+                            generateDocument();
+                            alert("스프레드시트에서 데이터를 성공적으로 불러왔습니다!");
+                        } else {
+                             // 데이터가 없거나 헤더만 있는 경우
+                            riskTreatments = []; // 기존 데이터 초기화
+                            renderRiskTreatmentList(); // 목록 UI 업데이트
+                            generateDocument(); // 문서 미리보기 업데이트
+                            alert("스프레드시트에 저장된 위험처리방안 데이터가 없거나 헤더만 존재합니다.");
+                        }
+                    } catch (e) {
+                        console.error('Error parsing JSON data: ', e);
+                        alert('스프레드시트에서 데이터를 불러오는 중 오류가 발생했습니다: 잘못된 데이터 형식입니다.');
                     }
                 })
                 .withFailureHandler(function(error) {

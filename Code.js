@@ -41,12 +41,12 @@ function loadRiskTreatmentData() {
   Logger.log('Sheet found: %s', sheet ? true : false);
   if (!sheet) {
     Logger.log('Sheet not found: %s', sheetName);
-    return []; // Return empty array if sheet does not exist
+    return JSON.stringify([]); // Return empty array as JSON string if sheet does not exist
   }
 
   const range = sheet.getDataRange();
   const values = range.getValues();
   Logger.log('Data range dimensions: %d rows, %d columns', values.length, values[0] ? values[0].length : 0);
   Logger.log('Returning data (first 5 rows): %s', JSON.stringify(values.slice(0, 5)));
-  return values;
+  return JSON.stringify(values); // Return data as JSON string
 }
