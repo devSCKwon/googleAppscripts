@@ -518,38 +518,59 @@
         // Google Apps Script에서 데이터 불러오기
         function loadDataFromGoogleSheet() {
             google.script.run
-                .withSuccessHandler(function(data) {
-                    if (data && data.length > 0) {
-                        // 기본 정보는 첫 번째 행에서 가져옴 (가장 최근 데이터라고 가정)
-                        // 모든 항목에 동일한 제목, 날짜, 점검자가 있다고 가정
-                        const latestEntry = data[data.length - 1]; // 가장 최근에 추가된 항목 (또는 원하는 로직)
-                        
-                        document.getElementById('documentTitle').value = latestEntry['체크리스트 제목'] || '';
-                        document.getElementById('checkDate').value = latestEntry['점검일'] || '';
-                        document.getElementById('checkerName').value = latestEntry['점검자'] || '';
-                        
-                        // checkItems 배열을 Apps Script에서 받은 데이터로 채움
-                        checkItems = data.map(row => ({
-                            checkDivision: row['점검 구분'] || '',
-                            checkItem: row['점검 항목'] || '',
-                            checkStandard: row['점검 기준'] || '',
-                            checkMethod: row['점검 방법'] || '',
-                            checkResult: row['적합 여부'] === 'O' ? '적합' : (row['미적합 여부'] === 'O' ? '미적합' : ''),
-                            improvement: row['개선사항'] || ''
-                        }));
+                .withSuccessHandler(function(jsonData) { // 파라미터 이름을 jsonData로 변경하여 명확화
+                    try {
+                        const parsedData = JSON.parse(jsonData);
+                        if (parsedData && Array.isArray(parsedData) && parsedData.length > 0) {
+                            // 기본 정보는 가장 최근 데이터(마지막 행)를 사용한다고 가정
+                            const latestEntry = parsedData[parsedData.length - 1];
 
-                        renderCheckItemList();
-                        saveFormDataToLocalStorage(); // 불러온 데이터 로컬 저장소에 저장
-                        generateDocument();
-                        alert('스프레드시트에서 데이터를 성공적으로 불러왔습니다!');
-                    } else {
-                        alert('스프레드시트에서 불러올 데이터가 없습니다.');
+                            document.getElementById('documentTitle').value = latestEntry['체크리스트 제목'] || '';
+                            // 날짜 필드는 YYYY-MM-DD 형식으로 설정해야 함
+                            if (latestEntry['점검일']) {
+                                const dateValue = new Date(latestEntry['점검일']);
+                                // 유효한 날짜인지 확인 후 ISOString으로 변환하고 잘라냄
+                                if (!isNaN(dateValue.getTime())) {
+                                     document.getElementById('checkDate').value = dateValue.toISOString().slice(0,10);
+                                } else {
+                                     document.getElementById('checkDate').value = ''; // 유효하지 않으면 비움
+                                }
+                            } else {
+                                document.getElementById('checkDate').value = '';
+                            }
+                            document.getElementById('checkerName').value = latestEntry['점검자'] || '';
+
+                            // checkItems 배열을 Apps Script에서 받은 데이터로 채움
+                            checkItems = parsedData.map(row => ({
+                                checkDivision: row['점검 구분'] || '',
+                                checkItem: row['점검 항목'] || '',
+                                checkStandard: row['점검 기준'] || '',
+                                checkMethod: row['점검 방법'] || '',
+                                // '적합 여부' 또는 '미적합 여부' 컬럼에 'O'가 있으면 해당 값으로 설정
+                                checkResult: row['적합 여부'] === 'O' ? '적합' : (row['미적합 여부'] === 'O' ? '미적합' : ''),
+                                improvement: row['개선사항'] || ''
+                            }));
+
+                            renderCheckItemList();
+                            saveFormDataToLocalStorage(); // 불러온 데이터 로컬 저장소에 저장
+                            generateDocument(); // 문서 미리보기 업데이트
+                            alert('스프레드시트에서 데이터를 성공적으로 불러왔습니다!');
+                        } else {
+                            // 데이터가 비어있거나(Code.js에서 빈 배열 반환 시) 형식이 잘못된 경우
+                            checkItems = []; // 기존 항목 초기화
+                            renderCheckItemList();
+                            generateDocument();
+                            alert('스프레드시트에서 불러올 데이터가 없거나 형식이 올바르지 않습니다.');
+                        }
+                    } catch (e) {
+                        console.error('Error parsing or processing data from sheet:', e);
+                        alert('데이터 처리 중 오류가 발생했습니다: ' + e.message);
                     }
                 })
                 .withFailureHandler(function(error) {
                     alert('스프레드시트에서 데이터 불러오기 중 오류가 발생했습니다: ' + error.message);
                 })
-                .getDataFromSheet();
+                .getDataFromSheet(); // Code.js에 정의된 함수 호출
         }
 
 
