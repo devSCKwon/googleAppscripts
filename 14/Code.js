@@ -2,7 +2,8 @@ function doGet(e) {
   // 웹 앱으로 배포 시 index.html 파일을 서빙합니다.
   return HtmlService.createHtmlOutputFromFile('index')
       .setTitle('문서관리 점검 체크리스트')
-      .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL); // 필요에 따라 보안 설정 조정
+      .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL); // 필요에 따라
+보안 설정 조정
 }
 
 function appendDataToSheet(data) {
@@ -13,10 +14,11 @@ function appendDataToSheet(data) {
   // 시트가 없으면 새로 생성하고 헤더를 추가합니다.
   if (!sheet) {
     sheet = ss.insertSheet(sheetName);
-    const headers = ['체크리스트 제목', '점검일', '점검자', '점검 구분', '점검 항목', '점검 기준', '점검 방법', '적합 여부', '미적합 여부', '개선사항', '저장일시'];
+    const headers = ['체크리스트 제목', '점검일', '점검자', '점검 구분', '점검 항목', '점검 기준', '점검
+방법', '적합 여부', '미적합 여부', '개선사항', '저장일시'];
     sheet.appendRow(headers);
     sheet.setFrozenRows(1); // 첫 행을 고정
-    
+
     // 헤더 스타일링 (선택 사항)
     const headerRange = sheet.getRange(1, 1, 1, headers.length);
     headerRange.setBackground('#1A237E'); // 네이비 배경
@@ -58,14 +60,14 @@ function getDataFromSheet() {
   const sheet = ss.getSheetByName(sheetName);
 
   if (!sheet) {
-    return []; // 시트가 없으면 빈 배열 반환
+    return JSON.stringify([]); // 시트가 없으면 빈 배열 반환
   }
 
   const range = sheet.getDataRange();
   const values = range.getValues();
 
   if (values.length < 2) { // 헤더 행만 있거나 데이터가 없으면
-    return [];
+    return JSON.stringify([]);
   }
 
   const headers = values[0]; // 첫 번째 행은 헤더
@@ -79,8 +81,8 @@ function getDataFromSheet() {
     });
     return rowObject;
   });
-  
-  return result;
+
+  return JSON.stringify(result);
 }
 
 // 이 함수는 외부에서 호출할 수 있도록 노출합니다.
