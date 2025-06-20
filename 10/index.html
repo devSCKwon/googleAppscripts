@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>핵심문서통제이력관리양식</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+        :root {
+            --accent-color: #1A2B4C; /* Dark Navy */
+            --accent-color-light: #D1E0EE; /* Light Blue/Grey */
+            --accent-color-start: #2C3E50; /* Mid Navy for gradient start */
+            --accent-color-end: #1A2B4C; /* Dark Navy for gradient end */
+            --header-bg-image: url('https://i.imgur.com/K4z3k7L.png'); /* Abstract blue data lines/network */
+            --header-bg-position: left 10% center;
+            --header-bg-size: 30% auto;
+            --header-bg-opacity: 0.15;
+            --header-mix-blend-mode: soft-light;
+        }
+        * {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .material-section {
+            break-inside: avoid;
+            page-break-inside: avoid;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        .input-group {
+            margin-bottom: 1rem;
+        }
+        .section-divider {
+            border-top: 2px solid #e5e7eb;
+            margin: 3rem 0;
+        }
+        .gradient-header-bg {
+            background: linear-gradient(135deg, var(--accent-color-start) 0%, var(--accent-color-end) 100%);
+            padding: 2.5rem;
+            border-radius: 1rem;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        .gradient-header-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: var(--header-bg-image);
+            background-repeat: no-repeat;
+            background-position: var(--header-bg-position);
+            background-size: var(--header-bg-size);
+            opacity: var(--header-bg-opacity);
+            z-index: 1;
+            mix-blend-mode: var(--header-mix-blend-mode);
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        .gradient-header-bg h1, .gradient-header-bg p {
+            position: relative;
+            z-index: 2;
+        }
+        .accent-border {
+            border-left: 5px solid var(--accent-color);
+            padding-left: 1rem;
+        }
+        .section-heading, .document-output h2, .document-output h3 {
+            font-family: 'Playfair Display', serif !important;
+            font-weight: 700 !important;
+            color: #1F2937 !important;
+            display: flex;
+            align-items: center;
+        }
+        .section-heading {
+            border-bottom: 3px solid var(--accent-color-light);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .section-heading i {
+            margin-right: 0.75rem;
+            color: var(--accent-color);
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        @media print {
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                font-size: 11pt;
+                line-height: 1.6;
+                color: #333333;
+                background-color: transparent !important;
+            }
+            .container {
+                max-width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+            .shadow-lg {
+                box-shadow: none !important;
+            }
+            .document-output {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                font-family: 'Times New Roman', serif !important;
+            }
+            .material-section {
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+                border: 1px solid #e5e7eb !important;
+                padding: 1.5rem !important;
+                margin-bottom: 1.5rem !important;
+                background-color: #ffffff !important;
+                border-radius: 0.5rem !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .document-output h2, .document-output h3 {
+                font-family: 'Playfair Display', serif !important;
+                font-weight: 700 !important;
+                color: #1F2937 !important;
+            }
+            .section-heading {
+                border-bottom: 1px solid #ddd !important;
+                padding-bottom: 0.25rem !important;
+                margin-bottom: 1rem !important;
+            }
+            .gradient-header-bg {
+                background: linear-gradient(135deg, var(--accent-color-start) 0%, var(--accent-color-end) 100%) !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color: white !important;
+                padding: 1rem !important;
+                border-radius: 0.5rem !important;
+                text-shadow: none !important;
+                border: none !important;
+            }
+            .gradient-header-bg::before {
+                background-image: var(--header-bg-image) !important;
+                background-position: var(--header-bg-position) !important;
+                background-size: var(--header-bg-size) !important;
+                opacity: 0.05 !important;
+                mix-blend-mode: normal !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .accent-border {
+                border-left-color: var(--accent-color) !important;
+                background-color: #E0E7F5 !important; /* Lighter navy for print */
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            @page {
+                size: A4 landscape; /* 가로 방향 A4로 변경 */
+                margin: 1in;
+            }
+            /* Table font size reduction for print */
+            .document-output table,
+            .document-output th,
+            .document-output td {
+                font-size: 80% !important; /* Reduce table font size */
+            }
+        }
+        .print-only { display: none; }
+        /* Modal specific styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 1000px; /* Wider for more fields */
+            position: relative;
+        }
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+        <div class="text-center mb-8 no-print">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">
+                <i class="fas fa-file-contract text-blue-800 mr-3"></i> 핵심문서통제이력관리양식 작성 도우미
+            </h1>
+            <p class="text-gray-600 text-lg">정보자산 위험 관리 절차서 내 핵심문서 통제 이력 관리 양식을 작성합니다.</p>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="bg-white rounded-lg shadow-lg p-6 no-print">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                    <i class="fas fa-edit text-blue-700 mr-2"></i>
+                    정보 입력
+                </h2>
+                <form id="documentForm" class="space-y-6">
+                    <div class="border-b border-gray-200 pb-6">
+                        <h3 class="text-lg font-semibold text-gray-700 mb-4 section-heading">
+                            <i class="fas fa-file-alt"></i> 절차서 정보
+                        </h3>
+                        
+                        <div class="input-group">
+                            <label class="block text-sm font-medium text-gray-700 mb-2" for="documentTitle">양식 제목*</label>
+                            <input type="text" id="documentTitle" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700" placeholder="예: 핵심문서통제이력관리양식 v1.0">
+                        </div>
+                        <div class="input-group">
+                            <label class="block text-sm font-medium text-gray-700 mb-2" for="documentVersion">버전</label>
+                            <input type="text" id="documentVersion" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700" placeholder="예: v1.0">
+                        </div>
+                        <div class="input-group">
+                            <label class="block text-sm font-medium text-gray-700 mb-2" for="releaseDate">작성일</label>
+                            <input type="date" id="releaseDate" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700">
+                        </div>
+                    </div>
+
+                    <div class="border-b border-gray-200 pb-6">
+                        <h3 class="text-lg font-semibold text-gray-700 mb-4 section-heading">
+                            <i class="fas fa-list-alt"></i> 핵심 문서 통제 이력 목록
+                        </h3>
+                        <button type="button" id="addDocumentControlButton" class="w-full bg-blue-700 text-white py-3 px-6 rounded-md hover:bg-blue-800 transition duration-300 font-semibold mb-4">
+                            <i class="fas fa-plus-circle mr-2"></i>
+                            문서 통제 이력 추가
+                        </button>
+                        <div id="documentControlList" class="space-y-2">
+                            <p id="noDocumentControlMessage" class="text-gray-500 text-center">아직 추가된 핵심 문서 통제 이력 데이터가 없습니다. '문서 통제 이력 추가' 버튼을 눌러주세요.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col space-y-3">
+                        <button type="submit" class="w-full bg-blue-700 text-white py-3 px-6 rounded-md hover:bg-blue-800 transition duration-300 font-semibold">
+                            <i class="fas fa-magic mr-2"></i>
+                            양식 생성하기
+                        </button>
+                        <button type="button" id="saveFileButton" class="w-full bg-blue-600 text-white py-3 px-6 rounded-md hover:bg-blue-700 transition duration-300 font-semibold">
+                            <i class="fas fa-download mr-2"></i>
+                            데이터 파일로 저장 (JSON)
+                        </button>
+                        <label for="loadFile" class="w-full bg-gray-500 text-white py-3 px-6 rounded-md hover:bg-gray-600 transition duration-300 font-semibold text-center cursor-pointer">
+                            <i class="fas fa-upload mr-2"></i>
+                            데이터 파일 불러오기 (JSON)
+                            <input type="file" id="loadFile" accept=".json" class="hidden">
+                        </label>
+                        <button type="button" id="saveToSheetButton" class="w-full bg-green-600 text-white py-3 px-6 rounded-md hover:bg-green-700 transition duration-300 font-semibold">
+                            <i class="fas fa-file-excel mr-2"></i>
+                            스프레드시트에 저장
+                        </button>
+                         <button type="button" id="loadFromSheetButton" class="w-full bg-yellow-600 text-white py-3 px-6 rounded-md hover:bg-yellow-700 transition duration-300 font-semibold">
+                            <i class="fas fa-file-download mr-2"></i>
+                            스프레드시트에서 불러오기
+                        </button>
+                        <button type="button" id="clearFormButton" class="w-full bg-gray-300 text-gray-800 py-3 px-6 rounded-md hover:bg-gray-400 transition duration-300 font-semibold">
+                            <i class="fas fa-trash-alt mr-2"></i>
+                            양식 초기화
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <div class="flex items-center justify-between mb-6 no-print">
+                    <h2 class="text-2xl font-bold text-gray-800">
+                        <i class="fas fa-file-alt text-blue-700 mr-2"></i>
+                        생성된 핵심문서통제이력관리양식
+                    </h2>
+                    <button onclick="window.print()" class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-800 transition duration-300">
+                        <i class="fas fa-print mr-2"></i>
+                        PDF 저장
+                    </button>
+                </div>
+                <div id="documentPreview" class="document-output">
+                    <div class="text-center text-gray-500 py-12">
+                        <i class="fas fa-clipboard-list text-6xl mb-4"></i>
+                        <p class="text-lg">좌측 양식을 작성하고 "양식 생성하기" 버튼을 클릭하세요</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="documentControlModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3 class="text-xl font-bold mb-4 text-gray-800"><i class="fas fa-file-alt mr-2 text-blue-700"></i>핵심 문서 통제 이력 항목 입력</h3>
+            <form id="documentControlForm" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="input-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2" for="documentId">문서ID*</label>
+                        <input type="text" id="documentId" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700" placeholder="예: EDM-001">
+                    </div>
+                    <div class="input-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2" for="documentName">문서명*</label>
+                        <input type="text" id="documentName" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700" placeholder="예: 신제품 설계도면(P-2025-01)">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="input-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2" for="documentType">문서유형</label>
+                        <input type="text" id="documentType" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700" placeholder="예: 설계도면">
+                    </div>
+                    <div class="input-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2" for="securityGrade">보안등급</label>
+                        <input type="text" id="securityGrade" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700" placeholder="예: 극비">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="input-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2" for="importanceScore">중요도점수</label>
+                        <input type="number" step="0.1" id="importanceScore" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700" placeholder="예: 8.8">
+                    </div>
+                    <div class="input-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2" for="owningDepartment">소유부서</label>
+                        <input type="text" id="owningDepartment" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700" placeholder="예: 설계팀">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="input-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2" for="manager">관리자</label>
+                        <input type="text" id="manager" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700" placeholder="예: 김종훈">
+                    </div>
+                    <div class="input-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2" for="isKeyDocument">핵심문서여부</label>
+                        <select id="isKeyDocument" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700">
+                            <option value="">선택</option>
+                            <option value="예">예</option>
+                            <option value="아니오">아니오</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label class="block text-sm font-medium text-gray-700 mb-2" for="reasonForSelection">선정사유</label>
+                    <textarea id="reasonForSelection" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700" placeholder="예: 신제품 핵심 기술정보 포함"></textarea>
+                </div>
+                <div class="input-group">
+                    <label class="block text-sm font-medium text-gray-700 mb-2" for="appliedControlMeasures">적용통제방안</label>
+                    <textarea id="appliedControlMeasures" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700" placeholder="예: DRM/접근권한관리/암호화"></textarea>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="input-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2" for="applicationDate">적용일자</label>
+                        <input type="date" id="applicationDate" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700">
+                    </div>
+                    <div class="input-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2" for="lastReviewDate">최종점검일</label>
+                        <input type="date" id="lastReviewDate" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="input-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2" for="status">상태</label>
+                        <input type="text" id="status" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700" placeholder="예: 정상">
+                    </div>
+                    <div class="input-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2" for="remarks">특이사항</label>
+                        <textarea id="remarks" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-700" placeholder="예: DRM 적용, 완료"></textarea>
+                    </div>
+                </div>
+                
+                <div class="flex justify-end space-x-3">
+                    <button type="button" id="cancelDocumentControlButton" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400 transition duration-300">취소</button>
+                    <button type="submit" class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-800 transition duration-300">문서 통제 이력 추가/수정</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const formId = 'documentForm';
+        const localStorageKeyPrefix = 'document_control_';
+        let documentControls = [];
+
+        function saveFormDataToLocalStorage() {
+            const formData = {};
+            const formElements = document.querySelectorAll(`#${formId} input, #${formId} textarea, #${formId} select`);
+            formElements.forEach(element => {
+                // Exclude modal fields
+                if (element.id && !['documentId', 'documentName', 'documentType', 'securityGrade', 'importanceScore', 'owningDepartment', 'manager', 'isKeyDocument', 'reasonForSelection', 'appliedControlMeasures', 'applicationDate', 'lastReviewDate', 'status', 'remarks'].includes(element.id)) {
+                    formData[element.id] = element.value;
+                }
+            });
+            formData.documentControls = documentControls;
+            localStorage.setItem(localStorageKeyPrefix + formId, JSON.stringify(formData));
+        }
+
+        function loadFormDataFromLocalStorage() {
+            const savedData = localStorage.getItem(localStorageKeyPrefix + formId);
+            if (savedData) {
+                const formData = JSON.parse(savedData);
+                for (const id in formData) {
+                    if (id === 'documentControls') {
+                        documentControls = formData[id] || [];
+                        renderDocumentControlList();
+                    } else {
+                        const element = document.getElementById(id);
+                        if (element) {
+                            if (element.type === 'date') {
+                                if (formData[id]) {
+                                    element.valueAsDate = new Date(formData[id]);
+                                }
+                            } else {
+                                element.value = formData[id];
+                            }
+                        }
+                    }
+                }
+                generateDocument();
+            } else {
+                const releaseDateElement = document.getElementById('releaseDate');
+                if (releaseDateElement) {
+                    const today = new Date();
+                    releaseDateElement.value = today.toISOString().slice(0,10);
+                }
+                generateDocument();
+            }
+        }
+
+        function clearForm() {
+            const formElements = document.querySelectorAll(`#${formId} input, #${formId} textarea, #${formId} select`);
+            formElements.forEach(element => {
+                if (element.type === 'date') {
+                    element.value = '';
+                } else if (element.tagName === 'SELECT') {
+                    element.value = '';
+                } else {
+                    element.value = '';
+                }
+            });
+            documentControls = [];
+            renderDocumentControlList();
+            localStorage.removeItem(localStorageKeyPrefix + formId);
+            generateDocument();
+        }
+
+        function downloadDataFile() {
+            const formData = {};
+            const formElements = document.querySelectorAll(`#${formId} input, #${formId} textarea, #${formId} select`);
+            formElements.forEach(element => {
+                 if (element.id && !['documentId', 'documentName', 'documentType', 'securityGrade', 'importanceScore', 'owningDepartment', 'manager', 'isKeyDocument', 'reasonForSelection', 'appliedControlMeasures', 'applicationDate', 'lastReviewDate', 'status', 'remarks'].includes(element.id)) {
+                    formData[element.id] = element.value;
+                }
+            });
+            formData.documentControls = documentControls;
+
+            const dataStr = JSON.stringify(formData, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            const formTitle = document.getElementById('documentTitle').value.replace(/[^a-zA-Z0-9가-힣_]/g, '_') || '핵심문서통제이력관리양식';
+            a.download = `${formTitle}_데이터_${new Date().toISOString().slice(0,10)}.json`; 
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function uploadDataFile(event) {
+            const file = event.target.files[0];
+            if (!file) {
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const loadedData = JSON.parse(e.target.result);
+                    for (const id in loadedData) {
+                        if (id === 'documentControls') {
+                            documentControls = loadedData[id] || [];
+                            renderDocumentControlList();
+                        } else {
+                            const element = document.getElementById(id);
+                            if (element) {
+                                if (element.type === 'date') {
+                                    if (loadedData[id]) {
+                                        element.valueAsDate = new Date(loadedData[id]);
+                                    }
+                                } else {
+                                    element.value = loadedData[id];
+                                }
+                            }
+                        }
+                    }
+                    saveFormDataToLocalStorage();
+                    generateDocument();
+                    alert('데이터를 성공적으로 불러왔습니다!');
+                } catch (error) {
+                    alert('파일을 읽는 중 오류가 발생했거나 유효한 JSON 파일이 아닙니다: ' + error.message);
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
+        // Google Apps Script 함수 호출 (데이터 저장)
+        function saveToGoogleSheet() {
+            if (documentControls.length === 0) {
+                alert("저장할 문서 통제 이력 데이터가 없습니다.");
+                return;
+            }
+            const dataToSave = documentControls.map(doc => [
+                doc.documentId,
+                doc.documentName,
+                doc.documentType,
+                doc.securityGrade,
+                doc.importanceScore,
+                doc.owningDepartment,
+                doc.manager,
+                doc.isKeyDocument,
+                doc.reasonForSelection,
+                doc.appliedControlMeasures,
+                doc.applicationDate,
+                doc.lastReviewDate,
+                doc.status,
+                doc.remarks
+            ]);
+            
+            // Check if google.script.run is defined
+            if (typeof google === 'undefined' || !google.script || !google.script.run) {
+                alert('Google Apps Script 환경이 아닙니다. 이 기능은 Google Apps Script에서 실행되어야 합니다.');
+                return;
+            }
+
+            google.script.run
+                .withSuccessHandler(function(response) {
+                    alert(response);
+                })
+                .withFailureHandler(function(error) {
+                    alert('스프레드시트 저장 실패: ' + error.message);
+                })
+                .saveDocumentControlData(dataToSave);
+        }
+
+        // Google Apps Script 함수 호출 (데이터 불러오기)
+        function loadFromGoogleSheet() {
+            // Check if google.script.run is defined
+            if (typeof google === 'undefined' || !google.script || !google.script.run) {
+                alert('Google Apps Script 환경이 아닙니다. 이 기능은 Google Apps Script에서 실행되어야 합니다.');
+                return;
+            }
+            
+            google.script.run
+                .withSuccessHandler(function(data) {
+                    if (data && data.length > 0) {
+                        // 첫 번째 행은 헤더이므로 건너뛰기
+                        documentControls = data.slice(1).map(row => ({
+                            documentId: row[0],
+                            documentName: row[1],
+                            documentType: row[2],
+                            securityGrade: row[3],
+                            importanceScore: parseFloat(row[4]),
+                            owningDepartment: row[5],
+                            manager: row[6],
+                            isKeyDocument: row[7],
+                            reasonForSelection: row[8],
+                            appliedControlMeasures: row[9],
+                            applicationDate: row[10],
+                            lastReviewDate: row[11],
+                            status: row[12],
+                            remarks: row[13]
+                        }));
+                        renderDocumentControlList();
+                        saveFormDataToLocalStorage();
+                        generateDocument();
+                        alert("스프레드시트에서 데이터를 성공적으로 불러왔습니다!");
+                    } else {
+                        alert("스프레드시트에 저장된 핵심 문서 통제 이력 데이터가 없습니다.");
+                    }
+                })
+                .withFailureHandler(function(error) {
+                    alert('스프레드시트 불러오기 실패: ' + error.message);
+                })
+                .loadDocumentControlData();
+        }
+
+        function generateDocument() {
+            const documentTitleInput = document.getElementById('documentTitle');
+            const documentVersionInput = document.getElementById('documentVersion');
+            const releaseDateInput = document.getElementById('releaseDate');
+
+            const documentTitle = documentTitleInput.value || documentTitleInput.placeholder || '핵심문서통제이력관리양식';
+            const documentVersion = documentVersionInput.value || documentVersionInput.placeholder || '';
+            const releaseDate = releaseDateInput.value;
+
+            const root = document.documentElement;
+            // Define theme colors for 'Navy'
+            let themeColor = '#1A2B4C'; /* Dark Navy */
+            let themeColorLight = '#D1E0EE'; /* Light Blue/Grey */
+            let themeColorStart = '#2C3E50'; /* Mid Navy for gradient start */
+            let themeColorEnd = '#1A2B4C'; /* Dark Navy for gradient end */
+            let headerBgImage = "url('https://i.imgur.com/K4z3k7L.png')"; // Abstract blue data lines/network
+            let headerBgPosition = 'left 10% center';
+            let headerBgSize = '30% auto';
+            let headerBgOpacity = 0.15;
+            let headerMixBlendMode = 'soft-light';
+
+            root.style.setProperty('--accent-color', themeColor);
+            root.style.setProperty('--accent-color-light', themeColorLight);
+            root.style.setProperty('--accent-color-start', themeColorStart);
+            root.style.setProperty('--accent-color-end', themeColorEnd);
+            root.style.setProperty('--header-bg-image', headerBgImage);
+            root.style.setProperty('--header-bg-position', headerBgPosition);
+            root.style.setProperty('--header-bg-size', headerBgSize);
+            root.style.setProperty('--header-bg-opacity', headerBgOpacity);
+            root.style.setProperty('--header-mix-blend-mode', headerMixBlendMode);
+
+            let documentControlTableRows = '';
+            if (documentControls.length > 0) {
+                documentControlTableRows = documentControls.map((doc, index) => `
+                    <tr class="${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'} border-b border-gray-200">
+                        <td class="py-2 px-3 text-sm text-gray-700">${doc.documentId}</td>
+                        <td class="py-2 px-3 text-sm text-gray-700">${doc.documentName}</td>
+                        <td class="py-2 px-3 text-sm text-gray-700">${doc.documentType}</td>
+                        <td class="py-2 px-3 text-sm text-center text-gray-700">${doc.securityGrade}</td>
+                        <td class="py-2 px-3 text-sm text-center text-gray-700">${doc.importanceScore}</td>
+                        <td class="py-2 px-3 text-sm text-gray-700">${doc.owningDepartment}</td>
+                        <td class="py-2 px-3 text-sm text-gray-700">${doc.manager}</td>
+                        <td class="py-2 px-3 text-sm text-center text-gray-700">${doc.isKeyDocument}</td>
+                        <td class="py-2 px-3 text-sm text-gray-700">${doc.reasonForSelection}</td>
+                        <td class="py-2 px-3 text-sm text-gray-700">${doc.appliedControlMeasures}</td>
+                        <td class="py-2 px-3 text-sm text-gray-700">${doc.applicationDate ? new Date(doc.applicationDate).toLocaleDateString('ko-KR') : '-'}</td>
+                        <td class="py-2 px-3 text-sm text-gray-700">${doc.lastReviewDate ? new Date(doc.lastReviewDate).toLocaleDateString('ko-KR') : '-'}</td>
+                        <td class="py-2 px-3 text-sm text-center text-gray-700">${doc.status}</td>
+                        <td class="py-2 px-3 text-sm text-gray-700">${doc.remarks}</td>
+                    </tr>
+                `).join('');
+            } else {
+                documentControlTableRows = `<tr><td colspan="14" class="py-4 text-center text-gray-500">등록된 핵심 문서 통제 이력 데이터가 없습니다.</td></tr>`;
+            }
+
+            let generatedHtml = `
+                <div class="fade-in">
+                    <div class="gradient-header-bg text-center mb-8">
+                        <h1 class="text-4xl font-bold mb-2">${documentTitle}</h1>
+                        ${documentVersion ? `<p class="text-xl opacity-90">${documentVersion}</p>` : ''}
+                        <p class="text-lg mt-4 opacity-80">정보자산 위험 관리 절차서 내 핵심 문서 통제 이력 관리 양식</p>
+                    </div>
+                    <div class="material-section">
+                        <h2 class="section-heading">
+                            <i class="fas fa-info-circle"></i>
+                            양식 개요
+                        </h2>
+                        ${releaseDate ? `<p class="text-sm text-gray-600 mb-4"><strong>작성일:</strong> ${new Date(releaseDate).toLocaleDateString('ko-KR')}</p>` : ''}
+                        <p class="text-gray-700 leading-relaxed">이 문서는 기업의 핵심 정보자산인 문서를 식별하고, 각 문서의 보안 등급, 중요도, 그리고 적용된 통제 방안에 대한 이력을 체계적으로 관리하기 위한 양식입니다. 문서의 생성부터 최종 점검에 이르는 모든 단계를 기록하여 정보 보안 및 규정 준수를 강화합니다.</p>
+                    </div>
+
+                    <div class="material-section">
+                        <h2 class="section-heading">
+                            <i class="fas fa-table"></i>
+                            핵심 문서 통제 이력 목록
+                        </h2>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+                                <thead class="bg-gray-100">
+                                    <tr>
+                                        <th class="py-2 px-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">문서ID</th>
+                                        <th class="py-2 px-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">문서명</th>
+                                        <th class="py-2 px-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">문서유형</th>
+                                        <th class="py-2 px-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">보안등급</th>
+                                        <th class="py-2 px-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">중요도점수</th>
+                                        <th class="py-2 px-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">소유부서</th>
+                                        <th class="py-2 px-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">관리자</th>
+                                        <th class="py-2 px-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">핵심문서여부</th>
+                                        <th class="py-2 px-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">선정사유</th>
+                                        <th class="py-2 px-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">적용통제방안</th>
+                                        <th class="py-2 px-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">적용일자</th>
+                                        <th class="py-2 px-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">최종점검일</th>
+                                        <th class="py-2 px-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">상태</th>
+                                        <th class="py-2 px-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">특이사항</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${documentControlTableRows}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="text-center text-gray-500 text-sm mt-8 pt-4 border-t border-gray-300 print-only">
+                        <p>본 문서는 ${new Date().toLocaleDateString('ko-KR')}에 생성되었습니다.</p>
+                        <p>&copy; ${new Date().getFullYear()} [SEJIN.CO.,LTD.] 모든 권리 보유.</p>
+                    </div>
+                </div>
+            `;
+            document.getElementById('documentPreview').innerHTML = generatedHtml;
+
+            if (window.innerWidth < 1024) {
+                document.getElementById('documentPreview').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function setupInputPlaceholders() {
+            const inputs = document.querySelectorAll('#documentForm input[placeholder], #documentForm textarea[placeholder]');
+            inputs.forEach(input => {
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Tab' && input.value.trim() === '') {
+                        e.preventDefault();
+                        input.value = input.placeholder;
+                        saveFormDataToLocalStorage();
+                        generateDocument();
+                    }
+                });
+            });
+
+            const modalInputs = document.querySelectorAll('#documentControlForm input[placeholder], #documentControlForm textarea[placeholder], #documentControlForm select');
+            modalInputs.forEach(input => {
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Tab' && input.value.trim() === '') {
+                        e.preventDefault();
+                        input.value = input.placeholder;
+                    }
+                });
+            });
+        }
+
+        function renderDocumentControlList() {
+            const documentControlListContainer = document.getElementById('documentControlList');
+            documentControlListContainer.innerHTML = '';
+            
+            if (documentControls.length === 0) {
+                documentControlListContainer.innerHTML = '<p id="noDocumentControlMessage" class="text-gray-500 text-center">아직 추가된 핵심 문서 통제 이력 데이터가 없습니다. \'문서 통제 이력 추가\' 버튼을 눌러주세요.</p>';
+                return;
+            }
+
+            documentControls.forEach((doc, index) => {
+                const documentControlItem = document.createElement('div');
+                documentControlItem.className = `flex items-center justify-between p-3 border border-gray-200 rounded-md ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`;
+                documentControlItem.innerHTML = `
+                    <div class="flex-1">
+                        <p class="font-medium text-gray-800">${doc.documentId}. ${doc.documentName}</p>
+                        <p class="text-sm text-gray-600">관리자: ${doc.manager} | 보안등급: ${doc.securityGrade}</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button type="button" class="text-blue-500 hover:text-blue-700" onclick="editDocumentControl(${index})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button type="button" class="text-blue-500 hover:text-blue-700" onclick="deleteDocumentControl(${index})">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                `;
+                documentControlListContainer.appendChild(documentControlItem);
+            });
+        }
+
+        document.getElementById('addDocumentControlButton').addEventListener('click', () => {
+            document.getElementById('documentControlForm').reset();
+            document.getElementById('documentControlModal').classList.remove('hidden');
+            document.getElementById('documentControlModal').style.display = 'flex';
+            document.getElementById('documentId').focus();
+            document.getElementById('documentControlForm').dataset.editIndex = '';
+        });
+
+        document.querySelector('.close-button').addEventListener('click', () => {
+            document.getElementById('documentControlModal').classList.add('hidden');
+            document.getElementById('documentControlModal').style.display = 'none';
+        });
+
+        document.getElementById('cancelDocumentControlButton').addEventListener('click', () => {
+            document.getElementById('documentControlModal').classList.add('hidden');
+            document.getElementById('documentControlModal').style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            const modal = document.getElementById('documentControlModal');
+            if (event.target === modal) {
+                modal.classList.add('hidden');
+                modal.style.display = 'none';
+            }
+        });
+
+        document.getElementById('documentControlForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const documentId = document.getElementById('documentId').value;
+            const documentName = document.getElementById('documentName').value;
+            const documentType = document.getElementById('documentType').value;
+            const securityGrade = document.getElementById('securityGrade').value;
+            const importanceScore = document.getElementById('importanceScore').value;
+            const owningDepartment = document.getElementById('owningDepartment').value;
+            const manager = document.getElementById('manager').value;
+            const isKeyDocument = document.getElementById('isKeyDocument').value;
+            const reasonForSelection = document.getElementById('reasonForSelection').value;
+            const appliedControlMeasures = document.getElementById('appliedControlMeasures').value;
+            const applicationDate = document.getElementById('applicationDate').value;
+            const lastReviewDate = document.getElementById('lastReviewDate').value;
+            const status = document.getElementById('status').value;
+            const remarks = document.getElementById('remarks').value;
+
+            const newDocumentControl = {
+                documentId,
+                documentName,
+                documentType,
+                securityGrade,
+                importanceScore: importanceScore ? parseFloat(importanceScore) : null,
+                owningDepartment,
+                manager,
+                isKeyDocument,
+                reasonForSelection,
+                appliedControlMeasures,
+                applicationDate,
+                lastReviewDate,
+                status,
+                remarks
+            };
+
+            const editIndex = document.getElementById('documentControlForm').dataset.editIndex;
+            if (editIndex !== '') {
+                documentControls[parseInt(editIndex)] = newDocumentControl;
+            } else {
+                const isDuplicate = documentControls.some(doc => doc.documentId === newDocumentControl.documentId);
+                if (isDuplicate) {
+                    alert('이미 존재하는 문서ID입니다. 다른 ID를 사용해주세요.');
+                    return;
+                }
+                documentControls.push(newDocumentControl);
+            }
+            
+            // Sort document controls by ID after adding/editing
+            documentControls.sort((a, b) => a.documentId.localeCompare(b.documentId));
+
+            renderDocumentControlList();
+            saveFormDataToLocalStorage();
+            generateDocument();
+            document.getElementById('documentControlModal').classList.add('hidden');
+            document.getElementById('documentControlModal').style.display = 'none';
+        });
+
+        function editDocumentControl(index) {
+            const docToEdit = documentControls[index];
+            document.getElementById('documentId').value = docToEdit.documentId;
+            document.getElementById('documentName').value = docToEdit.documentName;
+            document.getElementById('documentType').value = docToEdit.documentType;
+            document.getElementById('securityGrade').value = docToEdit.securityGrade;
+            document.getElementById('importanceScore').value = docToEdit.importanceScore;
+            document.getElementById('owningDepartment').value = docToEdit.owningDepartment;
+            document.getElementById('manager').value = docToEdit.manager;
+            document.getElementById('isKeyDocument').value = docToEdit.isKeyDocument;
+            document.getElementById('reasonForSelection').value = docToEdit.reasonForSelection;
+            document.getElementById('appliedControlMeasures').value = docToEdit.appliedControlMeasures;
+            document.getElementById('applicationDate').value = docToEdit.applicationDate;
+            document.getElementById('lastReviewDate').value = docToEdit.lastReviewDate;
+            document.getElementById('status').value = docToEdit.status;
+            document.getElementById('remarks').value = docToEdit.remarks;
+            
+            document.getElementById('documentControlForm').dataset.editIndex = index;
+            document.getElementById('documentControlModal').classList.remove('hidden');
+            document.getElementById('documentControlModal').style.display = 'flex';
+        }
+
+        function deleteDocumentControl(index) {
+            if (confirm('정말로 이 핵심 문서 통제 이력 데이터를 삭제하시겠습니까?')) {
+                documentControls.splice(index, 1);
+                renderDocumentControlList();
+                saveFormDataToLocalStorage();
+                generateDocument();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            setupInputPlaceholders();
+            loadFormDataFromLocalStorage();
+            
+            document.getElementById('documentControlModal').classList.add('hidden');
+            document.getElementById('documentControlModal').style.display = 'none';
+
+            const formElements = document.querySelectorAll(`#${formId} input, #${formId} textarea, #${formId} select`);
+            formElements.forEach(element => {
+                element.addEventListener('input', () => {
+                    saveFormDataToLocalStorage();
+                    generateDocument();
+                });
+                element.addEventListener('change', () => {
+                    saveFormDataToLocalStorage();
+                    generateDocument();
+                });
+            });
+
+            document.getElementById('saveFileButton').addEventListener('click', downloadDataFile);
+            document.getElementById('loadFile').addEventListener('change', uploadDataFile);
+            document.getElementById('clearFormButton').addEventListener('click', clearForm);
+            document.getElementById('saveToSheetButton').addEventListener('click', saveToGoogleSheet);
+            document.getElementById('loadFromSheetButton').addEventListener('click', loadFromGoogleSheet);
+
+            document.getElementById('documentForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                generateDocument();
+            });
+        });
+    </script>
+</body>
+</html>
