@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>위험처리방안 결정 양식</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+        :root {
+            --accent-color: #DC2626; /* Red-600 */
+            --accent-color-light: #FEE2E2; /* Red-100 */
+            --accent-color-start: #EF4444; /* Red-500 for gradient start */
+            --accent-color-end: #DC2626; /* Red-600 for gradient end */
+            --header-bg-image: url('https://i.imgur.com/R3x3f0O.png'); /* Abstract red lines/network */
+            --header-bg-position: right 10% center;
+            --header-bg-size: 30% auto;
+            --header-bg-opacity: 0.15;
+            --header-mix-blend-mode: soft-light;
+        }
+        * {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .material-section {
+            break-inside: avoid;
+            page-break-inside: avoid;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        .input-group {
+            margin-bottom: 1rem;
+        }
+        .section-divider {
+            border-top: 2px solid #e5e7eb;
+            margin: 3rem 0;
+        }
+        .gradient-header-bg {
+            background: linear-gradient(135deg, var(--accent-color-start) 0%, var(--accent-color-end) 100%);
+            padding: 2.5rem;
+            border-radius: 1rem;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        .gradient-header-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: var(--header-bg-image);
+            background-repeat: no-repeat;
+            background-position: var(--header-bg-position);
+            background-size: var(--header-bg-size);
+            opacity: var(--header-bg-opacity);
+            z-index: 1;
+            mix-blend-mode: var(--header-mix-blend-mode);
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        .gradient-header-bg h1, .gradient-header-bg p {
+            position: relative;
+            z-index: 2;
+        }
+        .accent-border {
+            border-left: 5px solid var(--accent-color);
+            padding-left: 1rem;
+        }
+        .section-heading, .document-output h2, .document-output h3 {
+            font-family: 'Playfair Display', serif !important;
+            font-weight: 700 !important;
+            color: #1F2937 !important;
+            display: flex;
+            align-items: center;
+        }
+        .section-heading {
+            border-bottom: 3px solid var(--accent-color-light);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .section-heading i {
+            margin-right: 0.75rem;
+            color: var(--accent-color);
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        @media print {
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                font-size: 11pt;
+                line-height: 1.6;
+                color: #333333;
+                background-color: transparent !important;
+            }
+            .container {
+                max-width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+            .shadow-lg {
+                box-shadow: none !important;
+            }
+            .document-output {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                font-family: 'Times New Roman', serif !important;
+            }
+            .material-section {
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+                border: 1px solid #e5e7eb !important;
+                padding: 1.5rem !important;
+                margin-bottom: 1.5rem !important;
+                background-color: #ffffff !important;
+                border-radius: 0.5rem !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .document-output h2, .document-output h3 {
+                font-family: 'Playfair Display', serif !important;
+                font-weight: 700 !important;
+                color: #1F2937 !important;
+            }
+            .section-heading {
+                border-bottom: 1px solid #ddd !important;
+                padding-bottom: 0.25rem !important;
+                margin-bottom: 1rem !important;
+            }
+            .gradient-header-bg {
+                background: linear-gradient(135deg, var(--accent-color-start) 0%, var(--accent-color-end) 100%) !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color: white !important;
+                padding: 1rem !important;
+                border-radius: 0.5rem !important;
+                text-shadow: none !important;
+                border: none !important;
+            }
+            .gradient-header-bg::before {
+                background-image: var(--header-bg-image) !important;
+                background-position: var(--header-bg-position) !important;
+                background-size: var(--header-bg-size) !important;
+                opacity: 0.05 !important;
+                mix-blend-mode: normal !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .accent-border {
+                border-left-color: var(--accent-color) !important;
+                background-color: #FFF5F5 !important; /* Lighter red for print */
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            @page {
+                size: A4 landscape; /* 가로 방향 A4로 변경 */
+                margin: 1in;
+            }
+            /* Table font size reduction for print */
+            .document-output table,
+            .document-output th,
+            .document-output td {
+                font-size: 80% !important; /* Reduce table font size */
+            }
+        }
+        .print-only { display: none; }
+        /* Modal specific styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 1000px; /* Wider for more fields */
+            position: relative;
+        }
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+        <div class="text-center mb-8 no-print">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">
+                <i class="fas fa-shield-alt text-red-600 mr-3"></i> 위험처리방안 결정 양식 작성 도우미
+            </h1>
+            <p class="text-gray-600 text-lg">정보자산 위험 관리 절차서 내 위험처리방안 결정 양식을 작성합니다.</p>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="bg-white rounded-lg shadow-lg p-6 no-print">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                    <i class="fas fa-edit text-red-500 mr-2"></i>
+                    정보 입력
+                </h2>
+                <form id="documentForm" class="space-y-6">
+                    <div class="border-b border-gray-200 pb-6">
+                        <h3 class="text-lg font-semibold text-gray-700 mb-4 section-heading">
+                            <i class="fas fa-file-alt"></i> 절차서 정보
+                        </h3>
+                        
+                        <div class="input-group">
+                            <label class="block text-sm font-medium text-gray-700 mb-2" for="documentTitle">양식 제목*</label>
+                            <input type="text" id="documentTitle" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="예: 위험처리방안 결정 양식 v1.0">
+                        </div>
+                        <div class="input-group">
+                            <label class="block text-sm font-medium text-gray-700 mb-2" for="documentVersion">버전</label>
+                            <input type="text" id="documentVersion" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="예: v1.0">
+                        </div>
+                        <div class="input-group">
+                            <label class="block text-sm font-medium text-gray-700 mb-2" for="releaseDate">작성일</label>
+                            <input type="date" id="releaseDate" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                        </div>
+                    </div>
+
+                    <div class="border-b border-gray-200 pb-6">
+                        <h3 class="text-lg font-semibold text-gray-700 mb-4 section-heading">
+                            <i class="fas fa-tasks"></i> 위험처리방안 목록
+                        </h3>
+                        <button type="button" id="addRiskTreatmentButton" class="w-full bg-red-600 text-white py-3 px-6 rounded-md hover:bg-red-700 transition duration-300 font-semibold mb-4">
+                            <i class="fas fa-plus-circle mr-2"></i>
+                            위험처리방안 추가
+                        </button>
+                        <div id="riskTreatmentList" class="space-y-2">
+                            <p id="noRiskTreatmentMessage" class="text-gray-500 text-center">아직 추가된 위험처리방안 데이터가 없습니다. '위험처리방안 추가' 버튼을 눌러주세요.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col space-y-3">
+                        <button type="submit" class="w-full bg-red-600 text-white py-3 px-6 rounded-md hover:bg-red-700 transition duration-300 font-semibold">
+                            <i class="fas fa-magic mr-2"></i>
+                            양식 생성하기
+                        </button>
+                        <button type="button" id="saveFileButton" class="w-full bg-red-500 text-white py-3 px-6 rounded-md hover:bg-red-600 transition duration-300 font-semibold">
+                            <i class="fas fa-download mr-2"></i>
+                            데이터 파일로 저장 (JSON)
+                        </button>
+                        <label for="loadFile" class="w-full bg-gray-500 text-white py-3 px-6 rounded-md hover:bg-gray-600 transition duration-300 font-semibold text-center cursor-pointer">
+                            <i class="fas fa-upload mr-2"></i>
+                            데이터 파일 불러오기 (JSON)
+                            <input type="file" id="loadFile" accept=".json" class="hidden">
+                        </label>
+                        <button type="button" id="saveToSheetButton" class="w-full bg-blue-600 text-white py-3 px-6 rounded-md hover:bg-blue-700 transition duration-300 font-semibold">
+                            <i class="fas fa-file-excel mr-2"></i>
+                            스프레드시트에 저장
+                        </button>
+                         <button type="button" id="loadFromSheetButton" class="w-full bg-yellow-600 text-white py-3 px-6 rounded-md hover:bg-yellow-700 transition duration-300 font-semibold">
+                            <i class="fas fa-file-download mr-2"></i>
+                            스프레드시트에서 불러오기
+                        </button>
+                        <button type="button" id="clearFormButton" class="w-full bg-gray-300 text-gray-800 py-3 px-6 rounded-md hover:bg-gray-400 transition duration-300 font-semibold">
+                            <i class="fas fa-trash-alt mr-2"></i>
+                            양식 초기화
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <div class="flex items-center justify-between mb-6 no-print">
+                    <h2 class="text-2xl font-bold text-gray-800">
+                        <i class="fas fa-file-alt text-red-600 mr-2"></i>
+                        생성된 위험처리방안 결정 양식
+                    </h2>
+                    <button onclick="window.print()" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition duration-300">
+                        <i class="fas fa-print mr-2"></i>
+                        PDF 저장
+                    </button>
+                </div>
+                <div id="documentPreview" class="document-output">
+                    <div class="text-center text-gray-500 py-12">
+                        <i class="fas fa-clipboard-list text-6xl mb-4"></i>
+                        <p class="text-lg">좌측 양식을 작성하고 "양식 생성하기" 버튼을 클릭하세요</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="riskTreatmentModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3 class="text-xl font-bold mb-4 text-gray-800"><i class="fas fa-tasks mr-2 text-red-500"></i>위험처리방안 항목 입력</h3>
+            <form id="riskTreatmentForm" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="input-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2" for="riskId">위험ID*</label>
+                        <input type="text" id="riskId" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="예: RISK-001">
+                    </div>
+                    <div class="input-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2" for="assetName">자산명*</label>
+                        <input type="text" id="assetName" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="예: 신제품 설계도면(P-2025-01)">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="input-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2" for="riskGrade">위험등급*</label>
+                        <input type="text" id="riskGrade" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="예: 상 (High)">
+                    </div>
+                    <div class="input-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2" for="riskLevel">위험도*</label>
+                        <input type="number" step="0.1" id="riskLevel" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="예: 50.4">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label class="block text-sm font-medium text-gray-700 mb-2" for="treatmentStrategy">처리전략*</label>
+                    <input type="text" id="treatmentStrategy" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="예: 위험 감소 (Risk Reduction)">
+                </div>
+                <div class="input-group">
+                    <label class="block text-sm font-medium text-gray-700 mb-2" for="detailedPlan">상세방안*</label>
+                    <textarea id="detailedPlan" required rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="예: 1) 설계도면 DRM 적용, 2) 접근통제 강화"></textarea>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="input-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2" for="implementationSchedule">구현일정*</label>
+                        <input type="text" id="implementationSchedule" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="예: 25.07.01 ~ 25.08.31">
+                    </div>
+                    <div class="input-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2" for="personInCharge">담당자*</label>
+                        <input type="text" id="personInCharge" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="예: 보안담당 권세창">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="input-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2" for="budget">예산(만원)</label>
+                        <input type="number" id="budget" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="예: 300">
+                    </div>
+                    <div class="input-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2" for="expectedEffect">예상효과</label>
+                        <input type="text" id="expectedEffect" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="예: 위험도 50.4 → 15.0 (감소율 70%)">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="input-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2" for="approvalStatus">승인상태</label>
+                        <input type="text" id="approvalStatus" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="예: 승인">
+                    </div>
+                    <div class="input-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2" for="approver">승인자</label>
+                        <input type="text" id="approver" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="예: 이성영">
+                    </div>
+                    <div class="input-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2" for="approvalDate">승인일자</label>
+                        <input type="date" id="approvalDate" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                    </div>
+                </div>
+                
+                <div class="flex justify-end space-x-3">
+                    <button type="button" id="cancelRiskTreatmentButton" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400 transition duration-300">취소</button>
+                    <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition duration-300">위험처리방안 추가/수정</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const formId = 'documentForm';
+        const localStorageKeyPrefix = 'risk_treatment_';
+        let riskTreatments = [];
+
+        function saveFormDataToLocalStorage() {
+            const formData = {};
+            const formElements = document.querySelectorAll(`#${formId} input, #${formId} textarea, #${formId} select`);
+            formElements.forEach(element => {
+                // Exclude modal fields
+                if (element.id && !['riskId', 'assetName', 'riskGrade', 'riskLevel', 'treatmentStrategy', 'detailedPlan', 'implementationSchedule', 'personInCharge', 'budget', 'expectedEffect', 'approvalStatus', 'approver', 'approvalDate'].includes(element.id)) {
+                    formData[element.id] = element.value;
+                }
+            });
+            formData.riskTreatments = riskTreatments;
+            localStorage.setItem(localStorageKeyPrefix + formId, JSON.stringify(formData));
+        }
+
+        function loadFormDataFromLocalStorage() {
+            const savedData = localStorage.getItem(localStorageKeyPrefix + formId);
+            if (savedData) {
+                const formData = JSON.parse(savedData);
+                for (const id in formData) {
+                    if (id === 'riskTreatments') {
+                        riskTreatments = formData[id] || [];
+                        renderRiskTreatmentList();
+                    } else {
+                        const element = document.getElementById(id);
+                        if (element) {
+                            if (element.type === 'date') {
+                                if (formData[id]) {
+                                    element.valueAsDate = new Date(formData[id]);
+                                }
+                            } else {
+                                element.value = formData[id];
+                            }
+                        }
+                    }
+                }
+                generateDocument();
+            } else {
+                const releaseDateElement = document.getElementById('releaseDate');
+                if (releaseDateElement) {
+                    const today = new Date();
+                    releaseDateElement.value = today.toISOString().slice(0,10);
+                }
+                generateDocument();
+            }
+        }
+
+        function clearForm() {
+            const formElements = document.querySelectorAll(`#${formId} input, #${formId} textarea, #${formId} select`);
+            formElements.forEach(element => {
+                if (element.type === 'date') {
+                    element.value = '';
+                } else if (element.tagName === 'SELECT') {
+                    element.value = '';
+                } else {
+                    element.value = '';
+                }
+            });
+            riskTreatments = [];
+            renderRiskTreatmentList();
+            localStorage.removeItem(localStorageKeyPrefix + formId);
+            generateDocument();
+        }
+
+        function downloadDataFile() {
+            const formData = {};
+            const formElements = document.querySelectorAll(`#${formId} input, #${formId} textarea, #${formId} select`);
+            formElements.forEach(element => {
+                 if (element.id && !['riskId', 'assetName', 'riskGrade', 'riskLevel', 'treatmentStrategy', 'detailedPlan', 'implementationSchedule', 'personInCharge', 'budget', 'expectedEffect', 'approvalStatus', 'approver', 'approvalDate'].includes(element.id)) {
+                    formData[element.id] = element.value;
+                }
+            });
+            formData.riskTreatments = riskTreatments;
+
+            const dataStr = JSON.stringify(formData, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            const formTitle = document.getElementById('documentTitle').value.replace(/[^a-zA-Z0-9가-힣_]/g, '_') || '위험처리방안_결정_양식';
+            a.download = `${formTitle}_데이터_${new Date().toISOString().slice(0,10)}.json`; 
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function uploadDataFile(event) {
+            const file = event.target.files[0];
+            if (!file) {
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const loadedData = JSON.parse(e.target.result);
+                    for (const id in loadedData) {
+                        if (id === 'riskTreatments') {
+                            riskTreatments = loadedData[id] || [];
+                            renderRiskTreatmentList();
+                        } else {
+                            const element = document.getElementById(id);
+                            if (element) {
+                                if (element.type === 'date') {
+                                    if (loadedData[id]) {
+                                        element.valueAsDate = new Date(loadedData[id]);
+                                    }
+                                } else {
+                                    element.value = loadedData[id];
+                                }
+                            }
+                        }
+                    }
+                    saveFormDataToLocalStorage();
+                    generateDocument();
+                    alert('데이터를 성공적으로 불러왔습니다!');
+                } catch (error) {
+                    alert('파일을 읽는 중 오류가 발생했거나 유효한 JSON 파일이 아닙니다: ' + error.message);
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
+        // Google Apps Script 함수 호출 (데이터 저장)
+        function saveToGoogleSheet() {
+            if (riskTreatments.length === 0) {
+                alert("저장할 위험처리방안 데이터가 없습니다.");
+                return;
+            }
+            const dataToSave = riskTreatments.map(treatment => [
+                treatment.riskId,
+                treatment.assetName,
+                treatment.riskGrade,
+                treatment.riskLevel,
+                treatment.treatmentStrategy,
+                treatment.detailedPlan,
+                treatment.implementationSchedule,
+                treatment.personInCharge,
+                treatment.budget,
+                treatment.expectedEffect,
+                treatment.approvalStatus,
+                treatment.approver,
+                treatment.approvalDate
+            ]);
+            
+            // Check if google.script.run is defined
+            if (typeof google === 'undefined' || !google.script || !google.script.run) {
+                alert('Google Apps Script 환경이 아닙니다. 이 기능은 Google Apps Script에서 실행되어야 합니다.');
+                return;
+            }
+
+            google.script.run
+                .withSuccessHandler(function(response) {
+                    alert(response);
+                })
+                .withFailureHandler(function(error) {
+                    alert('스프레드시트 저장 실패: ' + error.message);
+                })
+                .saveRiskTreatmentData(dataToSave);
+        }
+
+        // Google Apps Script 함수 호출 (데이터 불러오기)
+        function loadFromGoogleSheet() {
+            // Check if google.script.run is defined
+            if (typeof google === 'undefined' || !google.script || !google.script.run) {
+                alert('Google Apps Script 환경이 아닙니다. 이 기능은 Google Apps Script에서 실행되어야 합니다.');
+                return;
+            }
+            
+            google.script.run
+                .withSuccessHandler(function(data) {
+                    console.log('Data received in success handler:', data);
+                    console.log('Condition data && data.length > 0 evaluated to:', data && data.length > 0);
+                    if (data && data.length > 0) {
+                        console.log('Data after slice(1):', data.slice(1));
+                        // 첫 번째 행은 헤더이므로 건너뛰기
+                        riskTreatments = data.slice(1).map(row => ({
+                            riskId: row[0],
+                            assetName: row[1],
+                            riskGrade: row[2],
+                            riskLevel: parseFloat(row[3]),
+                            treatmentStrategy: row[4],
+                            detailedPlan: row[5],
+                            implementationSchedule: row[6],
+                            personInCharge: row[7],
+                            budget: parseFloat(row[8]),
+                            expectedEffect: row[9],
+                            approvalStatus: row[10],
+                            approver: row[11],
+                            approvalDate: row[12]
+                        }));
+                        renderRiskTreatmentList();
+                        saveFormDataToLocalStorage();
+                        generateDocument();
+                        alert("스프레드시트에서 데이터를 성공적으로 불러왔습니다!");
+                    } else {
+                        alert("스프레드시트에 저장된 위험처리방안 데이터가 없습니다.");
+                    }
+                })
+                .withFailureHandler(function(error) {
+                    alert('스프레드시트 불러오기 실패: ' + error.message);
+                })
+                .loadRiskTreatmentData();
+        }
+
+        function generateDocument() {
+            const documentTitleInput = document.getElementById('documentTitle');
+            const documentVersionInput = document.getElementById('documentVersion');
+            const releaseDateInput = document.getElementById('releaseDate');
+
+            const documentTitle = documentTitleInput.value || documentTitleInput.placeholder || '위험처리방안 결정 양식';
+            const documentVersion = documentVersionInput.value || documentVersionInput.placeholder || '';
+            const releaseDate = releaseDateInput.value;
+
+            const root = document.documentElement;
+            // Define theme colors for 'Red'
+            let themeColor = '#DC2626'; /* Red-600 */
+            let themeColorLight = '#FEE2E2'; /* Red-100 */
+            let themeColorStart = '#EF4444'; /* Red-500 for gradient start */
+            let themeColorEnd = '#DC2626'; /* Red-600 for gradient end */
+            let headerBgImage = "url('https://i.imgur.com/R3x3f0O.png')"; // Abstract red lines/network
+            let headerBgPosition = 'right 10% center';
+            let headerBgSize = '30% auto';
+            let headerBgOpacity = 0.15;
+            let headerMixBlendMode = 'soft-light';
+
+            root.style.setProperty('--accent-color', themeColor);
+            root.style.setProperty('--accent-color-light', themeColorLight);
+            root.style.setProperty('--accent-color-start', themeColorStart);
+            root.style.setProperty('--accent-color-end', themeColorEnd);
+            root.style.setProperty('--header-bg-image', headerBgImage);
+            root.style.setProperty('--header-bg-position', headerBgPosition);
+            root.style.setProperty('--header-bg-size', headerBgSize);
+            root.style.setProperty('--header-bg-opacity', headerBgOpacity);
+            root.style.setProperty('--header-mix-blend-mode', headerMixBlendMode);
+
+            let riskTreatmentTableRows = '';
+            if (riskTreatments.length > 0) {
+                riskTreatmentTableRows = riskTreatments.map((treatment, index) => `
+                    <tr class="${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'} border-b border-gray-200">
+                        <td class="py-2 px-3 text-sm text-gray-700">${treatment.riskId}</td>
+                        <td class="py-2 px-3 text-sm text-gray-700">${treatment.assetName}</td>
+                        <td class="py-2 px-3 text-sm text-center text-gray-700">${treatment.riskGrade}</td>
+                        <td class="py-2 px-3 text-sm text-center text-gray-700">${treatment.riskLevel}</td>
+                        <td class="py-2 px-3 text-sm text-gray-700">${treatment.treatmentStrategy}</td>
+                        <td class="py-2 px-3 text-sm text-gray-700">${treatment.detailedPlan}</td>
+                        <td class="py-2 px-3 text-sm text-gray-700">${treatment.implementationSchedule}</td>
+                        <td class="py-2 px-3 text-sm text-gray-700">${treatment.personInCharge}</td>
+                        <td class="py-2 px-3 text-sm text-right text-gray-700">${treatment.budget ? treatment.budget.toLocaleString() : '-'}</td>
+                        <td class="py-2 px-3 text-sm text-gray-700">${treatment.expectedEffect}</td>
+                        <td class="py-2 px-3 text-sm text-center text-gray-700">${treatment.approvalStatus}</td>
+                        <td class="py-2 px-3 text-sm text-gray-700">${treatment.approver}</td>
+                        <td class="py-2 px-3 text-sm text-gray-700">${treatment.approvalDate ? new Date(treatment.approvalDate).toLocaleDateString('ko-KR') : '-'}</td>
+                    </tr>
+                `).join('');
+            } else {
+                riskTreatmentTableRows = `<tr><td colspan="13" class="py-4 text-center text-gray-500">등록된 위험처리방안 데이터가 없습니다.</td></tr>`;
+            }
+
+            let generatedHtml = `
+                <div class="fade-in">
+                    <div class="gradient-header-bg text-center mb-8">
+                        <h1 class="text-4xl font-bold mb-2">${documentTitle}</h1>
+                        ${documentVersion ? `<p class="text-xl opacity-90">${documentVersion}</p>` : ''}
+                        <p class="text-lg mt-4 opacity-80">정보자산 위험 관리 절차서 내 위험처리방안 결정 양식</p>
+                    </div>
+                    <div class="material-section">
+                        <h2 class="section-heading">
+                            <i class="fas fa-info-circle"></i>
+                            양식 개요
+                        </h2>
+                        ${releaseDate ? `<p class="text-sm text-gray-600 mb-4"><strong>작성일:</strong> ${new Date(releaseDate).toLocaleDateString('ko-KR')}</p>` : ''}
+                        <p class="text-gray-700 leading-relaxed">이 문서는 식별된 정보자산 위험에 대한 처리 전략 및 상세 방안을 수립하고, 이의 구현 일정, 담당자, 예산 및 예상 효과를 명시하여 체계적인 위험 관리를 위한 의사 결정을 지원합니다.</p>
+                    </div>
+
+                    <div class="material-section">
+                        <h2 class="section-heading">
+                            <i class="fas fa-table"></i>
+                            위험처리방안 결정 목록
+                        </h2>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+                                <thead class="bg-gray-100">
+                                    <tr>
+                                        <th class="py-2 px-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">위험ID</th>
+                                        <th class="py-2 px-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">자산명</th>
+                                        <th class="py-2 px-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">위험등급</th>
+                                        <th class="py-2 px-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">위험도</th>
+                                        <th class="py-2 px-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">처리전략</th>
+                                        <th class="py-2 px-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">상세방안</th>
+                                        <th class="py-2 px-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">구현일정</th>
+                                        <th class="py-2 px-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">담당자</th>
+                                        <th class="py-2 px-3 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">예산(만원)</th>
+                                        <th class="py-2 px-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">예상효과</th>
+                                        <th class="py-2 px-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">승인상태</th>
+                                        <th class="py-2 px-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">승인자</th>
+                                        <th class="py-2 px-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">승인일자</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${riskTreatmentTableRows}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="text-center text-gray-500 text-sm mt-8 pt-4 border-t border-gray-300 print-only">
+                        <p>본 문서는 ${new Date().toLocaleDateString('ko-KR')}에 생성되었습니다.</p>
+                        <p>&copy; ${new Date().getFullYear()} [SEJIN.CO.,LTD.] 모든 권리 보유.</p>
+                    </div>
+                </div>
+            `;
+            document.getElementById('documentPreview').innerHTML = generatedHtml;
+
+            if (window.innerWidth < 1024) {
+                document.getElementById('documentPreview').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function setupInputPlaceholders() {
+            const inputs = document.querySelectorAll('#documentForm input[placeholder], #documentForm textarea[placeholder]');
+            inputs.forEach(input => {
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Tab' && input.value.trim() === '') {
+                        e.preventDefault();
+                        input.value = input.placeholder;
+                        saveFormDataToLocalStorage();
+                        generateDocument();
+                    }
+                });
+            });
+
+            const modalInputs = document.querySelectorAll('#riskTreatmentForm input[placeholder], #riskTreatmentForm textarea[placeholder]');
+            modalInputs.forEach(input => {
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Tab' && input.value.trim() === '') {
+                        e.preventDefault();
+                        input.value = input.placeholder;
+                    }
+                });
+            });
+        }
+
+        function renderRiskTreatmentList() {
+            const riskTreatmentListContainer = document.getElementById('riskTreatmentList');
+            riskTreatmentListContainer.innerHTML = '';
+            
+            if (riskTreatments.length === 0) {
+                riskTreatmentListContainer.innerHTML = '<p id="noRiskTreatmentMessage" class="text-gray-500 text-center">아직 추가된 위험처리방안 데이터가 없습니다. \'위험처리방안 추가\' 버튼을 눌러주세요.</p>';
+                return;
+            }
+
+            riskTreatments.forEach((treatment, index) => {
+                const riskTreatmentItem = document.createElement('div');
+                riskTreatmentItem.className = `flex items-center justify-between p-3 border border-gray-200 rounded-md ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`;
+                riskTreatmentItem.innerHTML = `
+                    <div class="flex-1">
+                        <p class="font-medium text-gray-800">${treatment.riskId}. ${treatment.assetName}</p>
+                        <p class="text-sm text-gray-600">처리전략: ${treatment.treatmentStrategy} | 담당자: ${treatment.personInCharge}</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button type="button" class="text-red-500 hover:text-red-700" onclick="editRiskTreatment(${index})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button type="button" class="text-red-500 hover:text-red-700" onclick="deleteRiskTreatment(${index})">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                `;
+                riskTreatmentListContainer.appendChild(riskTreatmentItem);
+            });
+        }
+
+        document.getElementById('addRiskTreatmentButton').addEventListener('click', () => {
+            document.getElementById('riskTreatmentForm').reset();
+            document.getElementById('riskTreatmentModal').classList.remove('hidden');
+            document.getElementById('riskTreatmentModal').style.display = 'flex';
+            document.getElementById('riskId').focus();
+            document.getElementById('riskTreatmentForm').dataset.editIndex = '';
+        });
+
+        document.querySelector('.close-button').addEventListener('click', () => {
+            document.getElementById('riskTreatmentModal').classList.add('hidden');
+            document.getElementById('riskTreatmentModal').style.display = 'none';
+        });
+
+        document.getElementById('cancelRiskTreatmentButton').addEventListener('click', () => {
+            document.getElementById('riskTreatmentModal').classList.add('hidden');
+            document.getElementById('riskTreatmentModal').style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            const modal = document.getElementById('riskTreatmentModal');
+            if (event.target === modal) {
+                modal.classList.add('hidden');
+                modal.style.display = 'none';
+            }
+        });
+
+        document.getElementById('riskTreatmentForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const riskId = document.getElementById('riskId').value;
+            const assetName = document.getElementById('assetName').value;
+            const riskGrade = document.getElementById('riskGrade').value;
+            const riskLevel = document.getElementById('riskLevel').value;
+            const treatmentStrategy = document.getElementById('treatmentStrategy').value;
+            const detailedPlan = document.getElementById('detailedPlan').value;
+            const implementationSchedule = document.getElementById('implementationSchedule').value;
+            const personInCharge = document.getElementById('personInCharge').value;
+            const budget = document.getElementById('budget').value;
+            const expectedEffect = document.getElementById('expectedEffect').value;
+            const approvalStatus = document.getElementById('approvalStatus').value;
+            const approver = document.getElementById('approver').value;
+            const approvalDate = document.getElementById('approvalDate').value;
+
+            const newRiskTreatment = {
+                riskId,
+                assetName,
+                riskGrade,
+                riskLevel: parseFloat(riskLevel),
+                treatmentStrategy,
+                detailedPlan,
+                implementationSchedule,
+                personInCharge,
+                budget: budget ? parseFloat(budget) : null,
+                expectedEffect,
+                approvalStatus,
+                approver,
+                approvalDate
+            };
+
+            const editIndex = document.getElementById('riskTreatmentForm').dataset.editIndex;
+            if (editIndex !== '') {
+                riskTreatments[parseInt(editIndex)] = newRiskTreatment;
+            } else {
+                const isDuplicate = riskTreatments.some(treatment => treatment.riskId === newRiskTreatment.riskId);
+                if (isDuplicate) {
+                    alert('이미 존재하는 위험ID입니다. 다른 ID를 사용해주세요.');
+                    return;
+                }
+                riskTreatments.push(newRiskTreatment);
+            }
+            
+            // Sort risk treatments by ID after adding/editing
+            riskTreatments.sort((a, b) => a.riskId.localeCompare(b.riskId));
+
+            renderRiskTreatmentList();
+            saveFormDataToLocalStorage();
+            generateDocument();
+            document.getElementById('riskTreatmentModal').classList.add('hidden');
+            document.getElementById('riskTreatmentModal').style.display = 'none';
+        });
+
+        function editRiskTreatment(index) {
+            const treatmentToEdit = riskTreatments[index];
+            document.getElementById('riskId').value = treatmentToEdit.riskId;
+            document.getElementById('assetName').value = treatmentToEdit.assetName;
+            document.getElementById('riskGrade').value = treatmentToEdit.riskGrade;
+            document.getElementById('riskLevel').value = treatmentToEdit.riskLevel;
+            document.getElementById('treatmentStrategy').value = treatmentToEdit.treatmentStrategy;
+            document.getElementById('detailedPlan').value = treatmentToEdit.detailedPlan;
+            document.getElementById('implementationSchedule').value = treatmentToEdit.implementationSchedule;
+            document.getElementById('personInCharge').value = treatmentToEdit.personInCharge;
+            document.getElementById('budget').value = treatmentToEdit.budget;
+            document.getElementById('expectedEffect').value = treatmentToEdit.expectedEffect;
+            document.getElementById('approvalStatus').value = treatmentToEdit.approvalStatus;
+            document.getElementById('approver').value = treatmentToEdit.approver;
+            document.getElementById('approvalDate').value = treatmentToEdit.approvalDate;
+            
+            document.getElementById('riskTreatmentForm').dataset.editIndex = index;
+            document.getElementById('riskTreatmentModal').classList.remove('hidden');
+            document.getElementById('riskTreatmentModal').style.display = 'flex';
+        }
+
+        function deleteRiskTreatment(index) {
+            if (confirm('정말로 이 위험처리방안 데이터를 삭제하시겠습니까?')) {
+                riskTreatments.splice(index, 1);
+                renderRiskTreatmentList();
+                saveFormDataToLocalStorage();
+                generateDocument();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            setupInputPlaceholders();
+            loadFormDataFromLocalStorage();
+            
+            document.getElementById('riskTreatmentModal').classList.add('hidden');
+            document.getElementById('riskTreatmentModal').style.display = 'none';
+
+            const formElements = document.querySelectorAll(`#${formId} input, #${formId} textarea, #${formId} select`);
+            formElements.forEach(element => {
+                element.addEventListener('input', () => {
+                    saveFormDataToLocalStorage();
+                    generateDocument();
+                });
+                element.addEventListener('change', () => {
+                    saveFormDataToLocalStorage();
+                    generateDocument();
+                });
+            });
+
+            document.getElementById('saveFileButton').addEventListener('click', downloadDataFile);
+            document.getElementById('loadFile').addEventListener('change', uploadDataFile);
+            document.getElementById('clearFormButton').addEventListener('click', clearForm);
+            document.getElementById('saveToSheetButton').addEventListener('click', saveToGoogleSheet);
+            document.getElementById('loadFromSheetButton').addEventListener('click', loadFromGoogleSheet);
+
+            document.getElementById('documentForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                generateDocument();
+            });
+        });
+    </script>
+</body>
+</html>
