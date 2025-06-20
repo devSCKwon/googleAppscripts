@@ -573,31 +573,43 @@
             }
             
             google.script.run
-                .withSuccessHandler(function(data) {
-                    if (data && data.length > 0) {
-                        // 첫 번째 행은 헤더이므로 건너뛰기
-                        documentControls = data.slice(1).map(row => ({
-                            documentId: row[0],
-                            documentName: row[1],
-                            documentType: row[2],
-                            securityGrade: row[3],
-                            importanceScore: parseFloat(row[4]),
-                            owningDepartment: row[5],
-                            manager: row[6],
-                            isKeyDocument: row[7],
-                            reasonForSelection: row[8],
-                            appliedControlMeasures: row[9],
-                            applicationDate: row[10],
-                            lastReviewDate: row[11],
-                            status: row[12],
-                            remarks: row[13]
-                        }));
+                .withSuccessHandler(function(jsonData) {
+                    try {
+                        const data = JSON.parse(jsonData);
+                        if (data && data.length > 1) { // 헤더 행이 있으므로 1보다 커야 데이터가 있는 것
+                            // 첫 번째 행은 헤더이므로 건너뛰기
+                            documentControls = data.slice(1).map(row => ({
+                                documentId: row[0],
+                                documentName: row[1],
+                                documentType: row[2],
+                                securityGrade: row[3],
+                                importanceScore: parseFloat(row[4]), // Ensure this is parsed as a number
+                                owningDepartment: row[5],
+                                manager: row[6],
+                                isKeyDocument: row[7],
+                                reasonForSelection: row[8],
+                                appliedControlMeasures: row[9],
+                                applicationDate: row[10], // Dates are typically strings, handle as needed
+                                lastReviewDate: row[11], // Dates are typically strings, handle as needed
+                                status: row[12],
+                                remarks: row[13]
+                            }));
+                            renderDocumentControlList();
+                            saveFormDataToLocalStorage(); // Save loaded data to local storage
+                            generateDocument(); // Update the preview
+                            alert("스프레드시트에서 데이터를 성공적으로 불러왔습니다!");
+                        } else {
+                            documentControls = []; // Clear existing controls
+                            renderDocumentControlList(); // Re-render the list (will show empty message)
+                            generateDocument(); // Update preview to reflect empty state
+                            alert("스프레드시트에 저장된 핵심 문서 통제 이력 데이터가 없거나 헤더만 존재합니다.");
+                        }
+                    } catch (e) {
+                        console.error("JSON 파싱 오류 또는 데이터 처리 오류:", e);
+                        alert("데이터를 불러오는 중 오류가 발생했습니다: " + e.message);
+                        documentControls = [];
                         renderDocumentControlList();
-                        saveFormDataToLocalStorage();
                         generateDocument();
-                        alert("스프레드시트에서 데이터를 성공적으로 불러왔습니다!");
-                    } else {
-                        alert("스프레드시트에 저장된 핵심 문서 통제 이력 데이터가 없습니다.");
                     }
                 })
                 .withFailureHandler(function(error) {

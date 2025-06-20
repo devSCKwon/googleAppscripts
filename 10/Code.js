@@ -39,10 +39,10 @@ function loadDocumentControlData() {
   const sheet = spreadsheet.getSheetByName(sheetName);
 
   if (!sheet) {
-    return []; // Return empty array if sheet does not exist
+    return JSON.stringify([]); // Return empty array if sheet does not exist
   }
 
   const range = sheet.getDataRange();
   const values = range.getValues();
-  return values;
+  return JSON.stringify(values);
 }
