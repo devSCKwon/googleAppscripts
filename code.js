@@ -98,8 +98,6 @@ function saveAssetDataToSheet(sheetName, dataToSave) {
     Logger.log("saveAssetDataToSheet: Attempting to save to sheet '" + sheetName + "'. Found: " + (sheet ? 'Yes' : 'No'));
 
     if (!sheet) {
-      // 시트가 없으면 여기서 생성하거나, 클라이언트에서 createNewSheetIfNotExists를 먼저 호출하도록 유도.
-      // 현재는 클라이언트에서 시트 생성을 먼저 하도록 유도하는 메시지 반환.
       Logger.log("saveAssetDataToSheet: Sheet '" + sheetName + "' not found.");
       return {status: "error", message: "'" + sheetName + "' 시트를 찾을 수 없습니다. '절차서 생성하기'를 통해 먼저 시트를 만들어주세요."};
     }
@@ -136,19 +134,18 @@ function loadAssetDataFromSheet(sheetName) {
       return {status: "no_sheet", message: "'" + sheetName + "' 시트를 찾을 수 없습니다.", data: [] };
     }
 
-    if (sheet.getLastRow() <= 1 && sheet.getLastColumn() === 0) { // 헤더도 없고 완전히 빈 시트 (또는 데이터가 없는 시트)
+    if (sheet.getLastRow() <= 1 && sheet.getLastColumn() === 0) {
        Logger.log("loadAssetDataFromSheet: Sheet '" + sheetName + "' is empty or has only a header.");
       return {status: "no_data", message: "'" + sheetName + "' 시트에 저장된 데이터가 없습니다.", data: []};
     }
 
     var dataRange = sheet.getDataRange();
-    if (!dataRange) { // 데이터 범위가 없는 경우 (예: 시트는 있지만 완전히 비어있음)
+    if (!dataRange) {
         Logger.log("loadAssetDataFromSheet: No data range in sheet '" + sheetName + "'.");
         return {status: "no_data", message: "'" + sheetName + "' 시트에 저장된 데이터가 없습니다.", data: []};
     }
     var data = dataRange.getValues();
 
-    // 데이터가 헤더만 있는 경우도 no_data로 처리
     if (data.length <= 1 && (data.length === 0 || (data.length === 1 && data[0].every(cell => cell === "")))) {
         Logger.log("loadAssetDataFromSheet: Sheet '" + sheetName + "' effectively has no data (or only empty header).");
         return {status: "no_data", message: "'" + sheetName + "' 시트에 저장된 데이터가 없습니다.", data: []};
