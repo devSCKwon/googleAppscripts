@@ -514,57 +514,118 @@
 
         // Google Apps Script 함수 호출 (데이터 저장)
         function saveToGoogleSheet() {
+            const departmentNameElement = document.getElementById('departmentName');
+            const selectedDepartment = departmentNameElement ? departmentNameElement.value : '';
+
+            if (!selectedDepartment) {
+                alert("부서명을 먼저 선택해주세요.");
+                return;
+            }
+
             if (assets.length === 0) {
                 alert("저장할 자산 분류 데이터가 없습니다.");
                 return;
             }
-            const dataToSave = assets.map(asset => [
+
+            // 헤더 추가
+            const header = ["자산번호", "자산유형", "자산분류", "자산명", "소유자", "관리자", "위치"];
+            const dataToSave = [header, ...assets.map(asset => [
                 asset.assetId,
                 asset.assetType,
                 asset.assetClassification,
                 asset.assetName,
-                asset.assetOwner,
-                asset.assetManager,
-                asset.assetLocation
-            ]);
+                asset.assetOwner || '',
+                asset.assetManager || '',
+                asset.assetLocation || ''
+            ])];
             
+            if (typeof google === 'undefined' || typeof google.script === 'undefined' || typeof google.script.run === 'undefined') {
+                alert(`Google Apps Script API 사용 불가. '${selectedDepartment}' 시트에 저장 시뮬레이션 완료.\n(실제 저장은 Google 환경에서 실행 필요)`);
+                console.log("Data to save to sheet '" + selectedDepartment + "':", dataToSave);
+                return;
+            }
+
+            // 로딩 인디케이터 표시 (옵션)
+            // showLoadingIndicator();
+
             google.script.run
                 .withSuccessHandler(function(response) {
-                    alert(response);
+                    // hideLoadingIndicator();
+                    if (response && response.status === "success") {
+                        alert(response.message || `'${selectedDepartment}' 시트에 데이터가 성공적으로 저장되었습니다.`);
+                    } else if (response && response.message) {
+                        alert(response.message); // Apps Script에서 보낸 구체적인 오류/상태 메시지
+                    } else {
+                        alert(`'${selectedDepartment}' 시트에 저장 완료 (응답 메시지 없음).`);
+                    }
                 })
                 .withFailureHandler(function(error) {
-                    alert('스프레드시트 저장 실패: ' + error.message);
+                    // hideLoadingIndicator();
+                    alert(`'${selectedDepartment}' 시트 저장 실패: ${error.message}`);
                 })
-                .saveAssetData(dataToSave);
+                .saveAssetDataToSheet(selectedDepartment, dataToSave);
         }
 
         // Google Apps Script 함수 호출 (데이터 불러오기)
         function loadFromGoogleSheet() {
+            const departmentNameElement = document.getElementById('departmentName');
+            const selectedDepartment = departmentNameElement ? departmentNameElement.value : '';
+
+            if (!selectedDepartment) {
+                alert("부서명을 먼저 선택해주세요.");
+                return;
+            }
+
+            if (typeof google === 'undefined' || typeof google.script === 'undefined' || typeof google.script.run === 'undefined') {
+                alert(`Google Apps Script API 사용 불가. '${selectedDepartment}' 시트에서 불러오기 시뮬레이션.\n(실제 불러오기는 Google 환경에서 실행 필요)`);
+                return;
+            }
+
+            // 로딩 인디케이터 표시 (옵션)
+            // showLoadingIndicator();
+
             google.script.run
-                .withSuccessHandler(function(data) {
-                    if (data && data.length > 0) {
-                        // 첫 번째 행은 헤더이므로 건너뛰기
-                        assets = data.slice(1).map(row => ({
-                            assetId: row[0],
-                            assetType: row[1],
-                            assetClassification: row[2],
-                            assetName: row[3],
-                            assetOwner: row[4],
-                            assetManager: row[5],
-                            assetLocation: row[6]
-                        }));
+                .withSuccessHandler(function(response) {
+                    // hideLoadingIndicator();
+                    if (response && response.status === "success" && response.data && response.data.length > 0) {
+                        // 첫 번째 행은 헤더일 수 있으므로, Apps Script에서 순수 데이터만 보내거나 클라이언트에서 처리
+                        // 여기서는 Apps Script가 헤더를 제외한 데이터를 보낸다고 가정하거나, 헤더를 포함하면 slice(1)을 유지합니다.
+                        // 만약 Apps Script에서 헤더를 포함한 전체 데이터를 보낸다면:
+                        const rawData = response.data;
+                        if (rawData.length > 1) { // 헤더가 있고 데이터 행이 최소 하나 이상 있을 때
+                             assets = rawData.slice(1).map(row => ({
+                                assetId: row[0] || '',
+                                assetType: row[1] || '',
+                                assetClassification: row[2] || '',
+                                assetName: row[3] || '',
+                                assetOwner: row[4] || '',
+                                assetManager: row[5] || '',
+                                assetLocation: row[6] || ''
+                            }));
+                        } else { // 헤더만 있거나 빈 배열일 경우
+                            assets = [];
+                        }
+                        renderAssetList();
+                        saveFormDataToLocalStorage(); // 불러온 데이터도 로컬에 저장
+                        generateDocument();
+                        alert(response.message || `'${selectedDepartment}' 시트에서 데이터를 성공적으로 불러왔습니다!`);
+                    } else if (response && response.status === "no_data") {
+                        assets = []; // 데이터가 없으므로 기존 자산 목록 비우기
                         renderAssetList();
                         saveFormDataToLocalStorage();
                         generateDocument();
-                        alert("스프레드시트에서 데이터를 성공적으로 불러왔습니다!");
+                        alert(response.message || `'${selectedDepartment}' 시트에 저장된 자산 분류 데이터가 없습니다.`);
+                    } else if (response && response.message) {
+                         alert(response.message); // Apps Script에서 보낸 구체적인 오류/상태 메시지
                     } else {
-                        alert("스프레드시트에 저장된 자산 분류 데이터가 없습니다.");
+                        alert(`'${selectedDepartment}' 시트에서 데이터를 불러왔으나, 내용이 없거나 형식이 맞지 않습니다.`);
                     }
                 })
                 .withFailureHandler(function(error) {
-                    alert('스프레드시트 불러오기 실패: ' + error.message);
+                    // hideLoadingIndicator();
+                    alert(`'${selectedDepartment}' 시트 불러오기 실패: ${error.message}`);
                 })
-                .loadAssetData();
+                .loadAssetDataFromSheet(selectedDepartment);
         }
 
         function generateDocument() {
@@ -856,10 +917,49 @@
             document.getElementById('saveToSheetButton').addEventListener('click', saveToGoogleSheet);
             document.getElementById('loadFromSheetButton').addEventListener('click', loadFromGoogleSheet);
 
-            document.getElementById('documentForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                generateDocument();
-            });
+            // "절차서 생성하기" 버튼 이벤트 리스너
+            const generateProcedureButton = document.getElementById('generateProcedureButton');
+            if (generateProcedureButton) {
+                generateProcedureButton.addEventListener('click', function() {
+                    const departmentNameElement = document.getElementById('departmentName');
+                    const selectedDepartment = departmentNameElement ? departmentNameElement.value : '';
+
+                    if (!selectedDepartment) {
+                        alert('부서명을 선택해주세요.');
+                        return;
+                    }
+
+                    if (typeof google === 'undefined' || typeof google.script === 'undefined' || typeof google.script.run === 'undefined') {
+                        alert(`Google Apps Script API 사용 불가. '${selectedDepartment}' 부서 시트 확인/생성 요청 (시뮬레이션).`);
+                        generateDocument();
+                        return;
+                    }
+
+                    // console.log(`Requesting sheet creation/check for: ${selectedDepartment}`);
+                    google.script.run
+                        .withSuccessHandler(function(response) {
+                            // console.log("createNewSheetIfNotExists response:", response);
+                            if (response && response.message) {
+                                alert(response.message);
+                            } else {
+                                alert(`'${selectedDepartment}' 부서 시트 확인/생성 요청 완료 (구체적인 응답 메시지 없음).`);
+                            }
+                            generateDocument();
+                        })
+                        .withFailureHandler(function(error) {
+                            // console.error("createNewSheetIfNotExists error:", error);
+                            alert(`'${selectedDepartment}' 부서 시트 확인/생성 실패: ${error.message}`);
+                            generateDocument();
+                        })
+                        .createNewSheetIfNotExists(selectedDepartment);
+                });
+            }
+
+            // 기존 documentForm의 submit 리스너는 generateProcedureButton 클릭으로 대체되었으므로 제거하거나 주석 처리합니다.
+            // document.getElementById('documentForm').addEventListener('submit', function(e) {
+            // e.preventDefault();
+            // generateDocument();
+            // });
         });
     </script>
 </body>
