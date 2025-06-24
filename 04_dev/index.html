@@ -373,6 +373,20 @@
         const localStorageKeyPrefix = 'risk_mgmt_asset_';
         let assets = [];
         let nextAssetNumber = 1; // Used for example asset ID generation
+        const defaultDocumentTitlePlaceholder = "예: 정보자산 - 자산 분류 기준표 v1.0";
+
+        function updateDocumentTitlePlaceholder() {
+            const departmentNameElement = document.getElementById('departmentName');
+            const documentTitleInput = document.getElementById('documentTitle');
+            if (departmentNameElement && documentTitleInput) {
+                const selectedDepartment = departmentNameElement.value;
+                if (selectedDepartment) {
+                    documentTitleInput.placeholder = `${selectedDepartment} - 자산 분류 기준표`;
+                } else {
+                    documentTitleInput.placeholder = defaultDocumentTitlePlaceholder;
+                }
+            }
+        }
 
         function saveFormDataToLocalStorage() {
             const formData = {};
