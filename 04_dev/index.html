@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정보자산 위험 관리 절차서 - 자산 분류 기준표</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+        :root {
+            --accent-color: #EF4444; /* Red color for risk management */
+            --accent-color-light: #FEE2E2;
+            --accent-color-start: #F87171;
+            --accent-color-end: #EF4444;
+            --header-bg-image: url('https://i.imgur.com/kS9lY4E.png'); /* 자산 위험 관리 관련 이미지 */
+            --header-bg-position: right 10% bottom 20%;
+            --header-bg-size: 35% auto;
+            --header-bg-opacity: 0.15;
+            --header-mix-blend-mode: soft-light;
+        }
+        * {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .material-section {
+            break-inside: avoid;
+            page-break-inside: avoid;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        .input-group {
+            margin-bottom: 1rem;
+        }
+        .section-divider {
+            border-top: 2px solid #e5e7eb;
+            margin: 3rem 0;
+        }
+        .gradient-header-bg {
+            background: linear-gradient(135deg, var(--accent-color-start) 0%, var(--accent-color-end) 100%);
+            padding: 2.5rem;
+            border-radius: 1rem;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        .gradient-header-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: var(--header-bg-image);
+            background-repeat: no-repeat;
+            background-position: var(--header-bg-position);
+            background-size: var(--header-bg-size);
+            opacity: var(--header-bg-opacity);
+            z-index: 1;
+            mix-blend-mode: var(--header-mix-blend-mode);
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        .gradient-header-bg h1, .gradient-header-bg p {
+            position: relative;
+            z-index: 2;
+        }
+        .accent-border {
+            border-left: 5px solid var(--accent-color, #EF4444);
+            padding-left: 1rem;
+        }
+        .section-heading, .document-output h2, .document-output h3 {
+            font-family: 'Playfair Display', serif !important;
+            font-weight: 700 !important;
+            color: #1F2937 !important;
+            display: flex;
+            align-items: center;
+        }
+        .section-heading {
+            border-bottom: 3px solid var(--accent-color-light);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .section-heading i {
+            margin-right: 0.75rem;
+            color: var(--accent-color);
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        @media print {
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                font-size: 11pt;
+                line-height: 1.6;
+                color: #333333;
+                background-color: transparent !important;
+            }
+            .container {
+                max-width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+            .shadow-lg {
+                box-shadow: none !important;
+            }
+            .document-output {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                font-family: 'Times New Roman', serif !important;
+            }
+            .material-section {
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+                border: 1px solid #e5e7eb !important;
+                padding: 1.5rem !important;
+                margin-bottom: 1.5rem !important;
+                background-color: #ffffff !important;
+                border-radius: 0.5rem !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .document-output h2, .document-output h3 {
+                font-family: 'Playfair Display', serif !important;
+                font-weight: 700 !important;
+                color: #1F2937 !important;
+            }
+            .section-heading {
+                border-bottom: 1px solid #ddd !important;
+                padding-bottom: 0.25rem !important;
+                margin-bottom: 1rem !important;
+            }
+            .gradient-header-bg {
+                background: linear-gradient(135deg, var(--accent-color-start) 0%, var(--accent-color-end) 100%) !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color: white !important;
+                padding: 1rem !important;
+                border-radius: 0.5rem !important;
+                text-shadow: none !important;
+                border: none !important;
+            }
+            .gradient-header-bg::before {
+                background-image: var(--header-bg-image) !important;
+                background-position: var(--header-bg-position) !important;
+                background-size: var(--header-bg-size) !important;
+                opacity: 0.05 !important;
+                mix-blend-mode: normal !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .accent-border {
+                border-left-color: var(--accent-color) !important;
+                background-color: #FFF0F0 !important; /* Lighter red for print */
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+        .print-only { display: none; }
+        @page {
+            size: A4;
+            margin: 1in;
+        }
+
+        /* Modal specific styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+        }
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+        <div class="text-center mb-8 no-print">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">
+                <i class="fas fa-exclamation-triangle text-red-600 mr-3"></i> 정보자산 위험 관리 절차서 작성 도우미
+            </h1>
+            <p class="text-gray-600 text-lg">정보자산의 위험 관리를 위한 자산 분류 기준표를 작성합니다.</p>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="bg-white rounded-lg shadow-lg p-6 no-print">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                    <i class="fas fa-edit text-red-500 mr-2"></i>
+                    정보 입력
+                </h2>
+                <form id="documentForm" class="space-y-6">
+                    <div class="border-b border-gray-200 pb-6">
+                        <h3 class="text-lg font-semibold text-gray-700 mb-4 section-heading">
+                            <i class="fas fa-file-alt"></i> 절차서 정보
+                        </h3>
+                        
+                        <div class="input-group">
+                            <label class="block text-sm font-medium text-gray-700 mb-2" for="documentTitle">절차서 제목*</label>
+                            <input type="text" id="documentTitle" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="예: 정보자산 - 자산 분류 기준표 v1.0">
+                        </div>
+                        <div class="input-group">
+                            <label class="block text-sm font-medium text-gray-700 mb-2" for="documentVersion">버전</label>
+                            <input type="text" id="documentVersion" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="예: v1.0">
+                        </div>
+                        <div class="input-group">
+                            <label class="block text-sm font-medium text-gray-700 mb-2" for="releaseDate">작성일</label>
+                            <input type="date" id="releaseDate" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                        </div>
+                    </div>
+
+                    <div class="border-b border-gray-200 pb-6">
+                        <h3 class="text-lg font-semibold text-gray-700 mb-4 section-heading">
+                            <i class="fas fa-table"></i> 자산 분류 기준표
+                        </h3>
+                        <button type="button" id="addAssetButton" class="w-full bg-red-600 text-white py-3 px-6 rounded-md hover:bg-red-700 transition duration-300 font-semibold mb-4">
+                            <i class="fas fa-plus-circle mr-2"></i>
+                            자산 추가
+                        </button>
+                        <div id="assetList" class="space-y-2">
+                            <p id="noAssetMessage" class="text-gray-500 text-center">아직 추가된 정보자산이 없습니다. '자산 추가' 버튼을 눌러주세요.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col space-y-3">
+                        <button type="submit" class="w-full bg-red-600 text-white py-3 px-6 rounded-md hover:bg-red-700 transition duration-300 font-semibold">
+                            <i class="fas fa-magic mr-2"></i>
+                            절차서 생성하기
+                        </button>
+                        <button type="button" id="saveFileButton" class="w-full bg-red-500 text-white py-3 px-6 rounded-md hover:bg-red-600 transition duration-300 font-semibold">
+                            <i class="fas fa-download mr-2"></i>
+                            데이터 파일로 저장 (JSON)
+                        </button>
+                        <label for="loadFile" class="w-full bg-gray-500 text-white py-3 px-6 rounded-md hover:bg-gray-600 transition duration-300 font-semibold text-center cursor-pointer">
+                            <i class="fas fa-upload mr-2"></i>
+                            데이터 파일 불러오기 (JSON)
+                            <input type="file" id="loadFile" accept=".json" class="hidden">
+                        </label>
+                        <button type="button" id="saveToSheetButton" class="w-full bg-green-600 text-white py-3 px-6 rounded-md hover:bg-green-700 transition duration-300 font-semibold">
+                            <i class="fas fa-file-excel mr-2"></i>
+                            스프레드시트에 저장
+                        </button>
+                         <button type="button" id="loadFromSheetButton" class="w-full bg-yellow-600 text-white py-3 px-6 rounded-md hover:bg-yellow-700 transition duration-300 font-semibold">
+                            <i class="fas fa-file-download mr-2"></i>
+                            스프레드시트에서 불러오기
+                        </button>
+                        <button type="button" id="clearFormButton" class="w-full bg-gray-300 text-gray-800 py-3 px-6 rounded-md hover:bg-gray-400 transition duration-300 font-semibold">
+                            <i class="fas fa-trash-alt mr-2"></i>
+                            양식 초기화
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <div class="flex items-center justify-between mb-6 no-print">
+                    <h2 class="text-2xl font-bold text-gray-800">
+                        <i class="fas fa-file-alt text-green-600 mr-2"></i>
+                        생성된 자산 분류 기준표
+                    </h2>
+                    <button onclick="window.print()" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition duration-300">
+                        <i class="fas fa-print mr-2"></i>
+                        PDF 저장
+                    </button>
+                </div>
+                <div id="documentPreview" class="document-output">
+                    <div class="text-center text-gray-500 py-12">
+                        <i class="fas fa-clipboard-list text-6xl mb-4"></i>
+                        <p class="text-lg">좌측 양식을 작성하고 "절차서 생성하기" 버튼을 클릭하세요</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="assetModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3 class="text-xl font-bold mb-4 text-gray-800"><i class="fas fa-cube mr-2 text-red-500"></i>정보자산 상세 정보 입력</h3>
+            <form id="assetForm" class="space-y-4">
+                <div class="input-group">
+                    <label class="block text-sm font-medium text-gray-700 mb-2" for="assetId">자산번호*</label>
+                    <input type="text" id="assetId" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="예: A-001-2024">
+                </div>
+                <div class="input-group">
+                    <label class="block text-sm font-medium text-gray-700 mb-2" for="assetType">자산유형*</label>
+                    <select id="assetType" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                        <option value="">--선택--</option>
+                        <option value="데이터">데이터</option>
+                        <option value="소프트웨어">소프트웨어</option>
+                        <option value="하드웨어">하드웨어</option>
+                        <option value="문서">문서</option>
+                        <option value="인력">인력</option>
+                        <option value="시설">시설</option>
+                        <option value="네트워크">네트워크</option>
+                        <option value="기타">기타</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label class="block text-sm font-medium text-gray-700 mb-2" for="assetClassification">자산분류*</label>
+                    <input type="text" id="assetClassification" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="예: 설계도면, 품질문서, 승인서류">
+                </div>
+                <div class="input-group">
+                    <label class="block text-sm font-medium text-gray-700 mb-2" for="assetName">자산명*</label>
+                    <input type="text" id="assetName" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="예: 고객 개인정보 데이터베이스">
+                </div>
+                <div class="input-group">
+                    <label class="block text-sm font-medium text-gray-700 mb-2" for="assetOwner">소유자</label>
+                    <input type="text" id="assetOwner" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="예: 정보보호팀">
+                </div>
+                <div class="input-group">
+                    <label class="block text-sm font-medium text-gray-700 mb-2" for="assetManager">관리자</label>
+                    <input type="text" id="assetManager" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="예: 김보안 팀장">
+                </div>
+                 <div class="input-group">
+                    <label class="block text-sm font-medium text-gray-700 mb-2" for="assetLocation">위치</label>
+                    <input type="text" id="assetLocation" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="예: 서버실 A동 12랙">
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button type="button" id="cancelAssetButton" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400 transition duration-300">취소</button>
+                    <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition duration-300">자산 추가/수정</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const formId = 'documentForm';
+        const localStorageKeyPrefix = 'risk_mgmt_asset_';
+        let assets = [];
+        let nextAssetNumber = 1; // Used for example asset ID generation
+
+        function saveFormDataToLocalStorage() {
+            const formData = {};
+            const formElements = document.querySelectorAll(`#${formId} input, #${formId} textarea, #${formId} select`);
+            formElements.forEach(element => {
+                // Exclude asset-specific modal fields
+                if (element.id && !['assetId', 'assetType', 'assetClassification', 'assetName', 'assetOwner', 'assetManager', 'assetLocation'].includes(element.id)) {
+                    formData[element.id] = element.value;
+                }
+            });
+            formData.assets = assets;
+            formData.nextAssetNumber = nextAssetNumber;
+            localStorage.setItem(localStorageKeyPrefix + formId, JSON.stringify(formData));
+        }
+
+        function loadFormDataFromLocalStorage() {
+            const savedData = localStorage.getItem(localStorageKeyPrefix + formId);
+            if (savedData) {
+                const formData = JSON.parse(savedData);
+                for (const id in formData) {
+                    if (id === 'assets') {
+                        assets = formData[id] || [];
+                        renderAssetList();
+                    } else if (id === 'nextAssetNumber') {
+                        nextAssetNumber = formData[id] || 1;
+                    } else {
+                        const element = document.getElementById(id);
+                        if (element) {
+                            if (element.type === 'date') {
+                                if (formData[id]) {
+                                    element.valueAsDate = new Date(formData[id]);
+                                }
+                            } else {
+                                element.value = formData[id];
+                            }
+                        }
+                    }
+                }
+                generateDocument();
+            } else {
+                const releaseDateElement = document.getElementById('releaseDate');
+                if (releaseDateElement) {
+                    const today = new Date();
+                    releaseDateElement.value = today.toISOString().slice(0,10);
+                }
+                generateDocument();
+            }
+        }
+
+        function clearForm() {
+            const formElements = document.querySelectorAll(`#${formId} input, #${formId} textarea, #${formId} select`);
+            formElements.forEach(element => {
+                if (element.type === 'date') {
+                    element.value = '';
+                } else if (element.tagName === 'SELECT') {
+                    element.value = '';
+                } else {
+                    element.value = '';
+                }
+            });
+            assets = [];
+            nextAssetNumber = 1;
+            renderAssetList();
+            localStorage.removeItem(localStorageKeyPrefix + formId);
+            generateDocument();
+        }
+
+        function downloadDataFile() {
+            const formData = {};
+            const formElements = document.querySelectorAll(`#${formId} input, #${formId} textarea, #${formId} select`);
+            formElements.forEach(element => {
+                 if (element.id && !['assetId', 'assetType', 'assetClassification', 'assetName', 'assetOwner', 'assetManager', 'assetLocation'].includes(element.id)) {
+                    formData[element.id] = element.value;
+                }
+            });
+            formData.assets = assets;
+            formData.nextAssetNumber = nextAssetNumber;
+
+            const dataStr = JSON.stringify(formData, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            const formTitle = document.getElementById('documentTitle').value.replace(/[^a-zA-Z0-9가-힣_]/g, '_') || '정보자산_위험_관리_절차서';
+            a.download = `${formTitle}_데이터_${new Date().toISOString().slice(0,10)}.json`; 
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function uploadDataFile(event) {
+            const file = event.target.files[0];
+            if (!file) {
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const loadedData = JSON.parse(e.target.result);
+                    for (const id in loadedData) {
+                        if (id === 'assets') {
+                            assets = loadedData[id] || [];
+                            renderAssetList();
+                        } else if (id === 'nextAssetNumber') {
+                            nextAssetNumber = loadedData[id] || 1;
+                        } else {
+                            const element = document.getElementById(id);
+                            if (element) {
+                                if (element.type === 'date') {
+                                    if (loadedData[id]) {
+                                        element.valueAsDate = new Date(loadedData[id]);
+                                    }
+                                } else {
+                                    element.value = loadedData[id];
+                                }
+                            }
+                        }
+                    }
+                    saveFormDataToLocalStorage();
+                    generateDocument();
+                    alert('데이터를 성공적으로 불러왔습니다!');
+                } catch (error) {
+                    alert('파일을 읽는 중 오류가 발생했거나 유효한 JSON 파일이 아닙니다: ' + error.message);
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
+        // Google Apps Script 함수 호출 (데이터 저장)
+        function saveToGoogleSheet() {
+            if (assets.length === 0) {
+                alert("저장할 자산 분류 데이터가 없습니다.");
+                return;
+            }
+            const dataToSave = assets.map(asset => [
+                asset.assetId,
+                asset.assetType,
+                asset.assetClassification,
+                asset.assetName,
+                asset.assetOwner,
+                asset.assetManager,
+                asset.assetLocation
+            ]);
+            
+            google.script.run
+                .withSuccessHandler(function(response) {
+                    alert(response);
+                })
+                .withFailureHandler(function(error) {
+                    alert('스프레드시트 저장 실패: ' + error.message);
+                })
+                .saveAssetData(dataToSave);
+        }
+
+        // Google Apps Script 함수 호출 (데이터 불러오기)
+        function loadFromGoogleSheet() {
+            google.script.run
+                .withSuccessHandler(function(data) {
+                    if (data && data.length > 0) {
+                        // 첫 번째 행은 헤더이므로 건너뛰기
+                        assets = data.slice(1).map(row => ({
+                            assetId: row[0],
+                            assetType: row[1],
+                            assetClassification: row[2],
+                            assetName: row[3],
+                            assetOwner: row[4],
+                            assetManager: row[5],
+                            assetLocation: row[6]
+                        }));
+                        renderAssetList();
+                        saveFormDataToLocalStorage();
+                        generateDocument();
+                        alert("스프레드시트에서 데이터를 성공적으로 불러왔습니다!");
+                    } else {
+                        alert("스프레드시트에 저장된 자산 분류 데이터가 없습니다.");
+                    }
+                })
+                .withFailureHandler(function(error) {
+                    alert('스프레드시트 불러오기 실패: ' + error.message);
+                })
+                .loadAssetData();
+        }
+
+        function generateDocument() {
+            const documentTitleInput = document.getElementById('documentTitle');
+            const documentVersionInput = document.getElementById('documentVersion');
+            const releaseDateInput = document.getElementById('releaseDate');
+
+            const documentTitle = documentTitleInput.value || documentTitleInput.placeholder || '정보자산 위험 관리 절차서';
+            const documentVersion = documentVersionInput.value || documentVersionInput.placeholder || '';
+            const releaseDate = releaseDateInput.value;
+
+            const root = document.documentElement;
+            // Define theme colors for 'Risk Management'
+            let themeColor = '#EF4444'; // Red
+            let themeColorLight = '#FEE2E2'; // Light Red
+            let themeColorStart = '#F87171'; // Lighter Red for gradient
+            let themeColorEnd = '#EF4444'; // Darker Red for gradient
+            let headerBgImage = "url('https://i.imgur.com/kS9lY4E.png')"; // Placeholder for risk management image
+            let headerBgPosition = 'right 10% bottom 20%';
+            let headerBgSize = '35% auto';
+            let headerBgOpacity = 0.15;
+            let headerMixBlendMode = 'soft-light';
+
+            root.style.setProperty('--accent-color', themeColor);
+            root.style.setProperty('--accent-color-light', themeColorLight);
+            root.style.setProperty('--accent-color-start', themeColorStart);
+            root.style.setProperty('--accent-color-end', themeColorEnd);
+            root.style.setProperty('--header-bg-image', headerBgImage);
+            root.style.setProperty('--header-bg-position', headerBgPosition);
+            root.style.setProperty('--header-bg-size', headerBgSize);
+            root.style.setProperty('--header-bg-opacity', headerBgOpacity);
+            root.style.setProperty('--header-mix-blend-mode', headerMixBlendMode);
+
+            let assetTableRows = '';
+            if (assets.length > 0) {
+                assetTableRows = assets.map((asset, index) => `
+                    <tr class="${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'} border-b border-gray-200">
+                        <td class="py-2 px-4 text-sm text-gray-700">${asset.assetId}</td>
+                        <td class="py-2 px-4 text-sm text-gray-700">${asset.assetType}</td>
+                        <td class="py-2 px-4 text-sm text-gray-700">${asset.assetClassification}</td>
+                        <td class="py-2 px-4 text-sm text-gray-700">${asset.assetName}</td>
+                        <td class="py-2 px-4 text-sm text-gray-700">${asset.assetOwner || '-'}</td>
+                        <td class="py-2 px-4 text-sm text-gray-700">${asset.assetManager || '-'}</td>
+                        <td class="py-2 px-4 text-sm text-gray-700">${asset.assetLocation || '-'}</td>
+                    </tr>
+                `).join('');
+            } else {
+                assetTableRows = `<tr><td colspan="7" class="py-4 text-center text-gray-500">등록된 정보자산이 없습니다.</td></tr>`;
+            }
+
+            let generatedHtml = `
+                <div class="fade-in">
+                    <div class="gradient-header-bg text-center mb-8">
+                        <h1 class="text-4xl font-bold mb-2">${documentTitle}</h1>
+                        ${documentVersion ? `<p class="text-xl opacity-90">${documentVersion}</p>` : ''}
+                        <p class="text-lg mt-4 opacity-80">정보자산 위험 관리 절차서 내 자산 분류 기준표</p>
+                    </div>
+                    <div class="material-section">
+                        <h2 class="section-heading">
+                            <i class="fas fa-info-circle"></i>
+                            절차서 개요
+                        </h2>
+                        ${releaseDate ? `<p class="text-sm text-gray-600 mb-4"><strong>작성일:</strong> ${new Date(releaseDate).toLocaleDateString('ko-KR')}</p>` : ''}
+                        <p class="text-gray-700 leading-relaxed">이 문서는 회사 정보자산의 체계적인 식별, 분류, 그리고 위험 관리를 위한 기준을 제공합니다. 자산 분류 기준표는 각 정보자산의 중요도와 특성을 명확히 하여 효과적인 위험 관리를 지원합니다.</p>
+                    </div>
+
+                    <div class="material-section">
+                        <h2 class="section-heading">
+                            <i class="fas fa-table"></i>
+                            자산 분류 기준표
+                        </h2>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+                                <thead class="bg-gray-100">
+                                    <tr>
+                                        <th class="py-2 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">자산번호</th>
+                                        <th class="py-2 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">자산유형</th>
+                                        <th class="py-2 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">자산분류</th>
+                                        <th class="py-2 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">자산명</th>
+                                        <th class="py-2 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">소유자</th>
+                                        <th class="py-2 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">관리자</th>
+                                        <th class="py-2 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">위치</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${assetTableRows}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="text-center text-gray-500 text-sm mt-8 pt-4 border-t border-gray-300 print-only">
+                        <p>본 문서는 ${new Date().toLocaleDateString('ko-KR')}에 생성되었습니다.</p>
+                        <p>&copy; ${new Date().getFullYear()} [SEJIN.CO.,LTD.] 모든 권리 보유.</p>
+                    </div>
+                </div>
+            `;
+            document.getElementById('documentPreview').innerHTML = generatedHtml;
+
+            if (window.innerWidth < 1024) {
+                document.getElementById('documentPreview').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function setupInputPlaceholders() {
+            const inputs = document.querySelectorAll('#documentForm input[placeholder], #documentForm textarea[placeholder]');
+            inputs.forEach(input => {
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Tab' && input.value.trim() === '') {
+                        e.preventDefault();
+                        input.value = input.placeholder;
+                        saveFormDataToLocalStorage();
+                        generateDocument();
+                    }
+                });
+            });
+
+            const modalInputs = document.querySelectorAll('#assetForm input[placeholder], #assetForm textarea[placeholder]');
+            modalInputs.forEach(input => {
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Tab' && input.value.trim() === '') {
+                        e.preventDefault();
+                        if (input.id === 'assetId') {
+                            input.value = `ASSET-${String(nextAssetNumber).padStart(3, '0')}-${new Date().getFullYear()}`;
+                        } else {
+                            input.value = input.placeholder;
+                        }
+                    }
+                });
+            });
+        }
+
+        function renderAssetList() {
+            const assetListContainer = document.getElementById('assetList');
+            assetListContainer.innerHTML = '';
+            
+            if (assets.length === 0) {
+                assetListContainer.innerHTML = '<p id="noAssetMessage" class="text-gray-500 text-center">아직 추가된 정보자산이 없습니다. \'자산 추가\' 버튼을 눌러주세요.</p>';
+                return;
+            }
+
+            assets.forEach((asset, index) => {
+                const assetItem = document.createElement('div');
+                assetItem.className = `flex items-center justify-between p-3 border border-gray-200 rounded-md ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`;
+                assetItem.innerHTML = `
+                    <div class="flex-1">
+                        <p class="font-medium text-gray-800">${asset.assetName} <span class="text-gray-500 text-sm">(${asset.assetId})</span></p>
+                        <p class="text-sm text-gray-600">${asset.assetType} | ${asset.assetClassification} | 소유자: ${asset.assetOwner || '미정'}</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button type="button" class="text-red-500 hover:text-red-700" onclick="editAsset(${index})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button type="button" class="text-red-500 hover:text-red-700" onclick="deleteAsset(${index})">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                `;
+                assetListContainer.appendChild(assetItem);
+            });
+        }
+
+        document.getElementById('addAssetButton').addEventListener('click', () => {
+            document.getElementById('assetForm').reset();
+            document.getElementById('assetId').placeholder = `예: ASSET-${String(nextAssetNumber).padStart(3, '0')}-${new Date().getFullYear()}`;
+            document.getElementById('assetModal').classList.remove('hidden');
+            document.getElementById('assetModal').style.display = 'flex';
+            document.getElementById('assetId').focus();
+            document.getElementById('assetForm').dataset.editIndex = '';
+        });
+
+        document.querySelector('.close-button').addEventListener('click', () => {
+            document.getElementById('assetModal').classList.add('hidden');
+            document.getElementById('assetModal').style.display = 'none';
+        });
+
+        document.getElementById('cancelAssetButton').addEventListener('click', () => {
+            document.getElementById('assetModal').classList.add('hidden');
+            document.getElementById('assetModal').style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            const modal = document.getElementById('assetModal');
+            if (event.target === modal) {
+                modal.classList.add('hidden');
+                modal.style.display = 'none';
+            }
+        });
+
+        document.getElementById('assetForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const assetId = document.getElementById('assetId').value;
+            const assetType = document.getElementById('assetType').value;
+            const assetClassification = document.getElementById('assetClassification').value;
+            const assetName = document.getElementById('assetName').value;
+            const assetOwner = document.getElementById('assetOwner').value;
+            const assetManager = document.getElementById('assetManager').value;
+            const assetLocation = document.getElementById('assetLocation').value;
+
+
+            const newAsset = {
+                assetId,
+                assetType,
+                assetClassification,
+                assetName,
+                assetOwner,
+                assetManager,
+                assetLocation
+            };
+
+            const editIndex = document.getElementById('assetForm').dataset.editIndex;
+            if (editIndex !== '') {
+                assets[parseInt(editIndex)] = newAsset;
+            } else {
+                const isDuplicate = assets.some(asset => asset.assetId === newAsset.assetId);
+                if (isDuplicate) {
+                    alert('이미 존재하는 자산 번호입니다. 다른 번호를 사용해주세요.');
+                    return;
+                }
+                assets.push(newAsset);
+                
+                // Update nextAssetNumber based on current max asset number
+                let maxNum = 0;
+                assets.forEach(asset => {
+                    const match = asset.assetId.match(/ASSET-(\d+)-(\d{4})/);
+                    if (match && parseInt(match[2]) === new Date().getFullYear()) {
+                        const num = parseInt(match[1]);
+                        if (!isNaN(num) && num > maxNum) {
+                            maxNum = num;
+                        }
+                    }
+                });
+                nextAssetNumber = maxNum + 1;
+            }
+            
+            renderAssetList();
+            saveFormDataToLocalStorage();
+            generateDocument();
+            document.getElementById('assetModal').classList.add('hidden');
+            document.getElementById('assetModal').style.display = 'none';
+        });
+
+        function editAsset(index) {
+            const assetToEdit = assets[index];
+            document.getElementById('assetId').value = assetToEdit.assetId;
+            document.getElementById('assetType').value = assetToEdit.assetType;
+            document.getElementById('assetClassification').value = assetToEdit.assetClassification;
+            document.getElementById('assetName').value = assetToEdit.assetName;
+            document.getElementById('assetOwner').value = assetToEdit.assetOwner;
+            document.getElementById('assetManager').value = assetToEdit.assetManager;
+            document.getElementById('assetLocation').value = assetToEdit.assetLocation;
+            
+            document.getElementById('assetForm').dataset.editIndex = index;
+            document.getElementById('assetModal').classList.remove('hidden');
+            document.getElementById('assetModal').style.display = 'flex';
+        }
+
+        function deleteAsset(index) {
+            if (confirm('정말로 이 정보자산을 삭제하시겠습니까?')) {
+                assets.splice(index, 1);
+                renderAssetList();
+                saveFormDataToLocalStorage();
+                generateDocument();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            setupInputPlaceholders();
+            loadFormDataFromLocalStorage();
+            
+            document.getElementById('assetModal').classList.add('hidden');
+            document.getElementById('assetModal').style.display = 'none';
+
+            const formElements = document.querySelectorAll(`#${formId} input, #${formId} textarea, #${formId} select`);
+            formElements.forEach(element => {
+                element.addEventListener('input', () => {
+                    saveFormDataToLocalStorage();
+                    generateDocument();
+                });
+                element.addEventListener('change', () => {
+                    saveFormDataToLocalStorage();
+                    generateDocument();
+                });
+            });
+
+            document.getElementById('saveFileButton').addEventListener('click', downloadDataFile);
+            document.getElementById('loadFile').addEventListener('change', uploadDataFile);
+            document.getElementById('clearFormButton').addEventListener('click', clearForm);
+            document.getElementById('saveToSheetButton').addEventListener('click', saveToGoogleSheet);
+            document.getElementById('loadFromSheetButton').addEventListener('click', loadFromGoogleSheet);
+
+            document.getElementById('documentForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                generateDocument();
+            });
+        });
+    </script>
+</body>
+</html>
