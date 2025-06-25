@@ -913,16 +913,35 @@
             document.getElementById('assetModal').classList.add('hidden');
             document.getElementById('assetModal').style.display = 'none';
 
+            // Initial placeholder update after loading data
+            updateDocumentTitlePlaceholder();
+
             const formElements = document.querySelectorAll(`#${formId} input, #${formId} textarea, #${formId} select`);
             formElements.forEach(element => {
-                element.addEventListener('input', () => {
-                    saveFormDataToLocalStorage();
-                    generateDocument();
-                });
-                element.addEventListener('change', () => {
-                    saveFormDataToLocalStorage();
-                    generateDocument();
-                });
+                if (element.id === 'departmentName') {
+                    element.addEventListener('change', () => {
+                        saveFormDataToLocalStorage();
+                        updateDocumentTitlePlaceholder(); // 부서명 변경 시 플레이스홀더 업데이트
+                        generateDocument();
+                    });
+                    // For departmentName, also listen to 'input' if dynamic typing updates are needed,
+                    // but for placeholder update, 'change' is usually sufficient.
+                    // If 'input' is also desired for other reasons for departmentName:
+                    element.addEventListener('input', () => {
+                         saveFormDataToLocalStorage();
+                         // updateDocumentTitlePlaceholder(); // 입력 중에도 업데이트하려면 이 줄 활성화
+                         generateDocument();
+                    });
+                } else {
+                    element.addEventListener('input', () => {
+                        saveFormDataToLocalStorage();
+                        generateDocument();
+                    });
+                    element.addEventListener('change', () => {
+                        saveFormDataToLocalStorage();
+                        generateDocument();
+                    });
+                }
             });
 
             document.getElementById('saveFileButton').addEventListener('click', downloadDataFile);
