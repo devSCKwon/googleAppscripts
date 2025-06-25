@@ -460,6 +460,8 @@
             nextAssetNumber = 1;
             renderAssetList();
             localStorage.removeItem(localStorageKeyPrefix + formId);
+            // 부서 선택이 초기화되었으므로, 플레이스홀더도 기본값으로 업데이트
+            updateDocumentTitlePlaceholder();
             generateDocument();
         }
 
