@@ -954,11 +954,29 @@
             const generateProcedureButton = document.getElementById('generateProcedureButton');
             if (generateProcedureButton) {
                 generateProcedureButton.addEventListener('click', function() {
+                    const documentTitleInput = document.getElementById('documentTitle');
+                    const documentVersionInput = document.getElementById('documentVersion');
                     const departmentNameElement = document.getElementById('departmentName');
+
+                    const documentTitleValue = documentTitleInput.value.trim();
+                    const documentVersionValue = documentVersionInput.value.trim();
                     const selectedDepartment = departmentNameElement ? departmentNameElement.value : '';
+
+                    if (!documentTitleValue) {
+                        alert('절차서 제목을 입력해주세요.');
+                        documentTitleInput.focus();
+                        return;
+                    }
+
+                    if (!documentVersionValue) {
+                        alert('버전 정보를 입력해주세요.');
+                        documentVersionInput.focus();
+                        return;
+                    }
 
                     if (!selectedDepartment) {
                         alert('부서명을 선택해주세요.');
+                        departmentNameElement.focus(); // 부서명 필드로 포커스
                         return;
                     }
 
